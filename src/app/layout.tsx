@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, Space_Grotesk, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import ClientProviders from "@/components/layout/ClientProviders";
 import JsonLd from "@/components/seo/JsonLd";
@@ -7,6 +7,11 @@ import { personalInfo, siteConfig } from "@/lib/constants";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
+const bebasNeue = Bebas_Neue({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-bebas",
+});
 
 const title = `${personalInfo.name} | Software Engineer, Python & Django Developer`;
 const description =
@@ -83,7 +88,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} font-sans bg-bg text-text-primary antialiased selection:bg-accent/30 selection:text-accent`}
+        className={`${inter.variable} ${spaceGrotesk.variable} ${bebasNeue.variable} font-sans bg-bg text-text-primary antialiased selection:bg-accent/30 selection:text-accent md:cursor-none`}
       >
         <JsonLd />
         <a href="#main-content" className="skip-nav">
