@@ -35,6 +35,23 @@ export const navItems = [
   { label: "Contact", href: "#contact" },
 ];
 
+// Minimal top-right navigation used by the redesigned Hero/Navbar.
+export const heroNavItems = [
+  { label: "ABOUT", href: "#about" },
+  { label: "WORK", href: "#projects" },
+  { label: "CONTACT", href: "#contact" },
+];
+
+// Left-side social rail on the redesigned Hero. Instagram/YouTube are
+// placeholders ("#") until real handles are provided.
+export const heroSocialLinks = [
+  { name: "GitHub", url: "https://github.com/Muhammedanas7474", icon: "github" },
+  { name: "LinkedIn", url: "https://www.linkedin.com/in/muhammed-anas-k-b44920357/", icon: "linkedin" },
+  { name: "Instagram", url: "#", icon: "instagram" },
+  { name: "YouTube", url: "#", icon: "youtube" },
+  { name: "Email", url: `mailto:${personalInfo.email}`, icon: "email" },
+];
+
 export const stats = [
   { label: "Years Experience", value: 2, suffix: "+" },
   { label: "Projects Shipped", value: 3, suffix: "+" },
