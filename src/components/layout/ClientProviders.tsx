@@ -1,16 +1,11 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import CustomCursor from "@/components/ui/CustomCursor";
 import ScrollProgress from "@/components/layout/ScrollProgress";
 import Navbar from "@/components/layout/Navbar";
+import SocialSidebar from "@/components/ui/SocialSidebar";
 import Footer from "@/components/layout/Footer";
-
-const FloatingParticles = dynamic(
-  () => import("@/components/three/FloatingParticles"),
-  { ssr: false }
-);
 
 export default function ClientProviders({
   children,
@@ -22,8 +17,8 @@ export default function ClientProviders({
       <LoadingScreen />
       <CustomCursor />
       <ScrollProgress />
-      <FloatingParticles />
       <Navbar />
+      <SocialSidebar />
 
       <main id="main-content">{children}</main>
 
