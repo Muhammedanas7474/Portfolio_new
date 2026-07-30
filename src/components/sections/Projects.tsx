@@ -2,11 +2,9 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { ExternalLink, Layers } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { projects } from "@/lib/constants";
 import type { Project } from "@/types";
-import SectionHeading from "@/components/ui/SectionHeading";
-import GlassCard from "@/components/ui/GlassCard";
 import { GithubIcon } from "@/components/ui/SocialIcons";
 
 const categories = ["All", ...new Set(projects.map((p) => p.category))];
@@ -16,136 +14,145 @@ export default function Projects() {
   const filteredProjects = projects.filter(
     (p) => activeCategory === "All" || p.category === activeCategory
   );
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="projects" className="py-24">
-      <div className="container mx-auto px-4">
-        <SectionHeading
-          title="Featured Projects"
-          subtitle="A selection of my recent work"
-        />
+    <section id="projects" className="relative py-28 md:py-36 overflow-hidden">
+      <div className="container mx-auto px-6 md:px-10" ref={ref}>
+        <span className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.4em] text-beige/60 mb-8">
+          <span className="h-1.5 w-1.5 rounded-full bg-hero-orange" aria-hidden="true" />
+          Work
+        </span>
 
-        {/* Filter Bar */}
-        <div className="flex flex-wrap items-center justify-center gap-4 mb-12" role="tablist" aria-label="Filter projects by category">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              type="button"
-              role="tab"
-              aria-selected={activeCategory === cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
-                activeCategory === cat
-                  ? "bg-accent text-white shadow-lg shadow-accent/25"
-                  : "glass text-text-secondary hover:text-text-primary border border-white/5"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16 md:mb-20">
+          <motion.h2
+            initial={{ opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            style={{ fontFamily: "var(--font-heading)" }}
+            className="max-w-2xl text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight text-beige"
+          >
+            Selected <span className="text-hero-orange">projects</span>
+          </motion.h2>
+
+          <div
+            className="flex flex-wrap items-center gap-3"
+            role="tablist"
+            aria-label="Filter projects by category"
+          >
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                role="tab"
+                aria-selected={activeCategory === cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-5 py-2 rounded-full text-xs font-medium uppercase tracking-wider transition-all ${
+                  activeCategory === cat
+                    ? "bg-hero-orange text-hero-bg"
+                    : "border border-beige/15 text-beige/55 hover:border-beige/35 hover:text-beige"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Grid */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
+        <div className="border-t border-beige/10">
           {filteredProjects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} />
+            <ProjectRow key={project.title} project={project} index={index} />
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 }
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectRow({ project, index }: { project: Project; index: number }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <motion.div
       ref={ref}
-      layout
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 24 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
+      className="group border-b border-beige/10"
     >
-      <GlassCard className="h-full flex flex-col overflow-hidden group">
-        <div className="relative h-48 overflow-hidden bg-gradient-to-br from-accent/25 via-accent-blue/15 to-transparent flex items-center justify-center">
-          <Layers
-            size={56}
-            className="text-white/20 group-hover:scale-110 group-hover:text-white/30 transition-transform duration-500"
-            aria-hidden="true"
-          />
-          <span className="absolute inset-0 flex items-center justify-center text-4xl font-black text-white/10 tracking-tight select-none">
-            {project.title}
-          </span>
-          <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        </div>
-
-        <div className="p-6 flex-grow flex flex-col">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-accent uppercase tracking-widest">
-              {project.category}
-            </span>
-          </div>
-
-          <h3 className="text-xl font-bold text-text-primary group-hover:text-accent transition-colors">
+      <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-8 py-8 md:py-10 px-4 md:px-6 -mx-4 md:-mx-6 transition-colors duration-300 group-hover:bg-hero-orange">
+        <span
+          style={{ fontFamily: "var(--font-heading)" }}
+          className="text-sm font-bold text-hero-orange group-hover:text-hero-bg/70 transition-colors duration-300 md:w-14"
+        >
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <div className="flex-1">
+          <h3
+            style={{ fontFamily: "var(--font-heading)" }}
+            className="text-3xl md:text-5xl font-bold text-beige group-hover:text-hero-bg transition-colors duration-300"
+          >
             {project.title}
           </h3>
-          <p className="text-text-secondary text-xs font-medium mb-3">
+          <p className="text-beige/50 group-hover:text-hero-bg/70 transition-colors duration-300 mt-1">
             {project.subtitle}
           </p>
-
-          <p className="text-text-secondary text-sm mb-4 line-clamp-2">
-            {project.description}
-          </p>
-
-          <ul className="flex flex-wrap gap-2 mb-4">
-            {project.features.map((feature) => (
-              <li
-                key={feature}
-                className="text-[10px] px-2 py-1 rounded bg-accent/10 text-accent border border-accent/10"
-              >
-                {feature}
-              </li>
-            ))}
-          </ul>
-
-          <div className="flex flex-wrap gap-2 mb-6 mt-auto">
-            {project.tech.map((t) => (
-              <span
-                key={t}
-                className="text-[10px] px-2 py-1 rounded bg-white/5 border border-white/5 text-text-muted"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-3">
-            <a
-              href={project.links.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl glass border border-white/10 text-text-secondary hover:text-text-primary hover:border-white/20 text-sm font-semibold transition-all"
-            >
-              <GithubIcon size={16} />
-              Code
-            </a>
-            <a
-              href={project.links.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-accent hover:bg-accent-hover text-white text-sm font-semibold transition-all"
-            >
-              <ExternalLink size={16} />
-              Live Demo
-            </a>
-          </div>
         </div>
-      </GlassCard>
+        <span className="text-xs uppercase tracking-[0.2em] text-beige/40 group-hover:text-hero-bg/60 transition-colors duration-300 whitespace-nowrap">
+          {project.category}
+        </span>
+      </div>
+
+      <div className="pb-10">
+        <p className="text-beige/50 text-sm md:text-base leading-relaxed max-w-2xl mb-5">
+          {project.description}
+        </p>
+
+        <ul className="flex flex-wrap gap-2 mb-5">
+          {project.features.map((feature) => (
+            <li
+              key={feature}
+              className="text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full bg-hero-orange/10 text-hero-orange border border-hero-orange/15"
+            >
+              {feature}
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex flex-wrap gap-2 mb-6">
+          {project.tech.map((t) => (
+            <span
+              key={t}
+              className="text-[10px] uppercase tracking-wider text-beige/50 border border-beige/15 px-2.5 py-1 rounded-full"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-4">
+          <a
+            href={project.links.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm font-medium text-beige/70 hover:text-hero-orange transition-colors"
+          >
+            <GithubIcon size={16} />
+            Code
+          </a>
+          <a
+            href={project.links.live}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm font-medium text-beige/70 hover:text-hero-orange transition-colors"
+          >
+            <ExternalLink size={16} />
+            Live Demo
+          </a>
+        </div>
+      </div>
     </motion.div>
   );
 }

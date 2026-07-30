@@ -1,63 +1,82 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { education } from "@/lib/constants";
-import SectionHeading from "@/components/ui/SectionHeading";
-import GlassCard from "@/components/ui/GlassCard";
-import { GraduationCap, Calendar, MapPin } from "lucide-react";
+
+function startYear(duration: string) {
+  const match = duration.match(/\d{4}/);
+  return match ? match[0] : duration;
+}
 
 export default function Education() {
-  return (
-    <section id="education" className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-4">
-        <SectionHeading
-          title="Academic Background"
-          subtitle="My educational journey and certifications"
-        />
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-        <div className="max-w-4xl mx-auto space-y-8">
+  return (
+    <section id="education" className="relative py-28 md:py-36 overflow-hidden">
+      <div className="container mx-auto px-6 md:px-10" ref={ref}>
+        <span className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.4em] text-beige/60 mb-8">
+          <span className="h-1.5 w-1.5 rounded-full bg-hero-orange" aria-hidden="true" />
+          Education
+        </span>
+
+        <motion.h2
+          initial={{ opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          style={{ fontFamily: "var(--font-heading)" }}
+          className="max-w-3xl text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight text-beige"
+        >
+          Academic <span className="text-hero-orange">background</span>
+        </motion.h2>
+
+        <div className="mt-16 md:mt-20 border-t border-beige/10">
           {education.map((edu, index) => (
             <motion.div
-              key={index}
+              key={edu.degree}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group border-b border-beige/10"
             >
-              <GlassCard className="p-8 flex flex-col md:flex-row gap-6 relative overflow-hidden group">
-                <div className="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent shrink-0 group-hover:bg-accent group-hover:text-white transition-all duration-500">
-                  <GraduationCap size={32} />
-                </div>
-                
-                <div className="flex-grow space-y-4">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                    <div>
-                      <h3 className="text-2xl font-bold text-text-primary group-hover:text-accent transition-colors">
-                        {edu.degree}
-                      </h3>
-                      {edu.institution && (
-                        <p className="text-accent font-medium">
-                          {edu.institution}
-                          {edu.university && `, ${edu.university}`}
-                        </p>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/5 text-text-muted text-sm whitespace-nowrap w-fit">
-                      <Calendar size={14} />
-                      {edu.duration}
-                    </div>
+              <div className="grid grid-cols-[80px_1fr] md:grid-cols-[160px_1fr] items-baseline gap-4 md:gap-8 py-8 md:py-10 px-4 md:px-6 -mx-4 md:-mx-6 transition-colors duration-300 group-hover:bg-hero-orange">
+                <span
+                  style={{ fontFamily: "var(--font-heading)" }}
+                  className="text-lg md:text-2xl font-bold text-hero-orange group-hover:text-hero-bg transition-colors duration-300"
+                >
+                  {startYear(edu.duration)}
+                </span>
+                <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4">
+                  <div>
+                    <h3
+                      style={{ fontFamily: "var(--font-heading)" }}
+                      className="text-xl md:text-3xl font-bold text-beige group-hover:text-hero-bg transition-colors duration-300"
+                    >
+                      {edu.degree}
+                    </h3>
+                    {edu.institution && (
+                      <p className="text-beige/50 group-hover:text-hero-bg/70 transition-colors duration-300 mt-1">
+                        {edu.institution}
+                        {edu.university && `, ${edu.university}`}
+                      </p>
+                    )}
                   </div>
-                  
-                  <div className="flex items-center gap-2 text-text-muted text-sm">
-                    <MapPin size={14} />
-                    {edu.location}
-                  </div>
-                  
-                  <p className="text-text-secondary leading-relaxed">
-                    {edu.description}
-                  </p>
+                  <span className="text-xs uppercase tracking-[0.2em] text-beige/40 group-hover:text-hero-bg/60 transition-colors duration-300 whitespace-nowrap">
+                    {edu.duration}
+                  </span>
                 </div>
-              </GlassCard>
+              </div>
+
+              <div className="pb-10">
+                <p className="text-beige/50 text-sm md:text-base leading-relaxed max-w-3xl">
+                  {edu.description}
+                </p>
+                <p className="text-beige/35 text-xs uppercase tracking-[0.2em] mt-3">
+                  {edu.location}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>

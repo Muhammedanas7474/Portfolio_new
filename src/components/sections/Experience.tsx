@@ -1,68 +1,94 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { experiences } from "@/lib/constants";
-import SectionHeading from "@/components/ui/SectionHeading";
-import GlassCard from "@/components/ui/GlassCard";
-import { Calendar, Briefcase } from "lucide-react";
+
+function timelineLabel(index: number, duration: string) {
+  if (index === 0) return "NOW";
+  const match = duration.match(/\d{4}/);
+  return match ? match[0] : duration;
+}
 
 export default function Experience() {
-  return (
-    <section id="experience" className="py-24 relative">
-      <div className="container mx-auto px-4">
-        <SectionHeading
-          title="Professional Journey"
-          subtitle="My work experience and career milestones"
-        />
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-        <div className="max-w-4xl mx-auto space-y-8">
+  return (
+    <section id="experience" className="relative py-28 md:py-36 overflow-hidden">
+      <div className="container mx-auto px-6 md:px-10" ref={ref}>
+        <span className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.4em] text-beige/60 mb-8">
+          <span className="h-1.5 w-1.5 rounded-full bg-hero-orange" aria-hidden="true" />
+          Experience
+        </span>
+
+        <motion.h2
+          initial={{ opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          style={{ fontFamily: "var(--font-heading)" }}
+          className="max-w-4xl text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight text-beige"
+        >
+          Building production software in{" "}
+          <span className="text-hero-orange">banking &amp; fintech</span> since day one of my
+          career.
+        </motion.h2>
+
+        <div className="mt-16 md:mt-20 border-t border-beige/10">
           {experiences.map((exp, index) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              key={exp.company}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group border-b border-beige/10"
             >
-              <GlassCard className="p-8 relative overflow-hidden group">
-                <div className="absolute top-0 left-0 w-1 h-full bg-accent group-hover:w-2 transition-all duration-300" />
-                
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+              <div className="grid grid-cols-[80px_1fr] md:grid-cols-[160px_1fr] items-baseline gap-4 md:gap-8 py-8 md:py-10 px-4 md:px-6 -mx-4 md:-mx-6 transition-colors duration-300 group-hover:bg-hero-orange">
+                <span
+                  style={{ fontFamily: "var(--font-heading)" }}
+                  className="text-lg md:text-2xl font-bold text-hero-orange group-hover:text-hero-bg transition-colors duration-300"
+                >
+                  {timelineLabel(index, exp.duration)}
+                </span>
+                <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4">
                   <div>
-                    <h3 className="text-2xl font-bold text-text-primary group-hover:text-accent transition-colors">
+                    <h3
+                      style={{ fontFamily: "var(--font-heading)" }}
+                      className="text-2xl md:text-4xl font-bold text-beige group-hover:text-hero-bg transition-colors duration-300"
+                    >
                       {exp.position}
                     </h3>
-                    <div className="flex items-center gap-2 text-accent font-medium mt-1">
-                      <Briefcase size={16} />
+                    <p className="text-beige/50 group-hover:text-hero-bg/70 transition-colors duration-300 mt-1">
                       {exp.company}
-                    </div>
+                    </p>
                   </div>
-                  <div className="flex items-center gap-2 px-4 py-1 rounded-full bg-white/5 border border-white/5 text-text-muted text-sm whitespace-nowrap">
-                    <Calendar size={14} />
+                  <span className="text-xs uppercase tracking-[0.2em] text-beige/40 group-hover:text-hero-bg/60 transition-colors duration-300 whitespace-nowrap">
                     {exp.duration}
-                  </div>
+                  </span>
                 </div>
+              </div>
 
-                <ul className="space-y-3">
+              <div className="pb-10 px-0 md:px-0">
+                <ul className="space-y-2.5 max-w-3xl">
                   {exp.responsibilities.map((resp, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-text-secondary">
-                      <span className="mt-2 w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
+                    <li key={idx} className="flex items-start gap-3 text-beige/50 text-sm md:text-base leading-relaxed">
+                      <span className="mt-2 w-1 h-1 rounded-full bg-hero-orange shrink-0" aria-hidden="true" />
                       {resp}
                     </li>
                   ))}
                 </ul>
-
-                <div className="flex flex-wrap gap-2 mt-6">
+                <div className="flex flex-wrap gap-2 mt-5">
                   {exp.tech.map((t) => (
                     <span
                       key={t}
-                      className="text-[10px] uppercase tracking-wider text-text-muted bg-white/5 px-2 py-1 rounded"
+                      className="text-[10px] uppercase tracking-wider text-beige/50 border border-beige/15 px-2.5 py-1 rounded-full"
                     >
                       {t}
                     </span>
                   ))}
                 </div>
-              </GlassCard>
+              </div>
             </motion.div>
           ))}
         </div>
