@@ -37,7 +37,7 @@ export default function About() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
-              <TextReveal radius={34}>
+              <TextReveal>
                 <h2
                   style={{ fontFamily: "var(--font-heading)" }}
                   className="text-[8vw] sm:text-5xl md:text-6xl lg:text-[4.2rem] font-bold leading-[1.08] tracking-tight text-beige"

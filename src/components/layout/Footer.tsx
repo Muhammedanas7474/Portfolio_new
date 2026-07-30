@@ -28,7 +28,7 @@ export default function Footer() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <TextReveal radius={24}>
+          <TextReveal>
             <blockquote
               style={{ fontFamily: "var(--font-heading)" }}
               className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight text-beige max-w-3xl"
