@@ -42,11 +42,11 @@ export default function GlassCard({ children, className }: GlassCardProps) {
       }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       className={cn(
-        "glass border border-white/10 rounded-3xl relative overflow-hidden backdrop-blur-xl",
+        "glass border border-beige/10 rounded-2xl relative overflow-hidden backdrop-blur-xl transition-colors duration-300 hover:border-hero-orange/25",
         className
       )}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-beige/[0.03] to-transparent pointer-events-none" />
       <div className="relative z-10 h-full">{children}</div>
     </motion.div>
   );

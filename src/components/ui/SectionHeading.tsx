@@ -14,41 +14,44 @@ export default function SectionHeading({
   eyebrow,
   title,
   subtitle,
-  centered = true,
+  centered = false,
 }: SectionHeadingProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <div
-      ref={ref}
-      className={`mb-16 ${centered ? "text-center" : "text-left"}`}
-    >
+    <div ref={ref} className={`mb-14 md:mb-20 ${centered ? "text-center" : "text-left"}`}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5 }}
       >
         {eyebrow && (
-          <span className="text-accent text-sm font-bold uppercase tracking-[0.3em] mb-4 block">
+          <span
+            className={`flex items-center gap-3 text-xs font-medium uppercase tracking-[0.4em] text-beige/60 mb-5 ${
+              centered ? "justify-center" : ""
+            }`}
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-hero-orange" aria-hidden="true" />
             {eyebrow}
           </span>
         )}
-        <h2 className="text-3xl md:text-5xl font-bold text-text-primary tracking-tight">
+        <h2
+          style={{ fontFamily: "var(--font-heading)" }}
+          className="text-4xl sm:text-5xl md:text-6xl font-bold text-beige tracking-tight leading-[1.05]"
+        >
           {title}
         </h2>
         {subtitle && (
-          <p className="mt-4 text-text-secondary text-lg max-w-2xl mx-auto">
+          <p
+            className={`mt-5 text-beige/50 text-base md:text-lg max-w-2xl leading-relaxed ${
+              centered ? "mx-auto" : ""
+            }`}
+          >
             {subtitle}
           </p>
         )}
       </motion.div>
-      <motion.div
-        initial={{ width: 0 }}
-        animate={isInView ? { width: 80 } : {}}
-        transition={{ duration: 0.8, delay: 0.5 }}
-        className={`h-1 bg-accent mt-6 ${centered ? "mx-auto" : ""}`}
-      />
     </div>
   );
 }
