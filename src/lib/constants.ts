@@ -62,6 +62,7 @@ export const stats = [
 export const skillCategories = [
   {
     title: "Backend",
+    blurb: "Django, Python, and enough REST APIs to power a small bank.",
     skills: [
       { name: "Python", level: 92 },
       { name: "Django", level: 90 },
@@ -74,6 +75,7 @@ export const skillCategories = [
   },
   {
     title: "Frontend",
+    blurb: "React components that mostly do what the designer intended.",
     skills: [
       { name: "React", level: 85 },
       { name: "Redux", level: 78 },
@@ -85,6 +87,7 @@ export const skillCategories = [
   },
   {
     title: "Database",
+    blurb: "Queries I'm quietly proud of and mildly afraid to touch again.",
     skills: [
       { name: "PostgreSQL", level: 85 },
       { name: "MySQL", level: 80 },
@@ -93,6 +96,7 @@ export const skillCategories = [
   },
   {
     title: "DevOps",
+    blurb: "Docker, Git, and just enough AWS to be dangerous.",
     skills: [
       { name: "Docker", level: 80 },
       { name: "Git", level: 90 },
@@ -103,6 +107,7 @@ export const skillCategories = [
   },
   {
     title: "Other",
+    blurb: "The non-technical skills that keep the technical stuff from catching fire.",
     skills: [
       { name: "Agile", level: 82 },
       { name: "SDLC", level: 85 },
