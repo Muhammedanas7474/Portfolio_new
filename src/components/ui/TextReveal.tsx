@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, type ReactNode } from "react";
-import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 interface TextRevealProps {
   children: ReactNode;
@@ -13,6 +13,13 @@ interface TextRevealProps {
  * Wraps text so an orange circle follows the cursor and reveals a
  * color-inverted copy underneath — the signature interaction from the
  * reference site, first built for the Hero and reused across headings.
+ *
+ * The circle is a free-floating element sized/positioned by width, height
+ * and transform — not a clip-path confined to the text's own bounding box.
+ * Clipping it to that box was cutting the circle into a flat-edged box
+ * shape whenever it neared an edge or corner (e.g. right as the cursor
+ * enters). Floating freely means it stays round even when it bleeds past
+ * the text into the surrounding space, matching the reference site.
  */
 export default function TextReveal({ children, radius }: TextRevealProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -23,8 +30,13 @@ export default function TextReveal({ children, radius }: TextRevealProps) {
   const springX = useSpring(mouseX, { stiffness: 180, damping: 22, mass: 0.4 });
   const springY = useSpring(mouseY, { stiffness: 180, damping: 22, mass: 0.4 });
   const springRadius = useSpring(circleRadius, { stiffness: 220, damping: 26, mass: 0.5 });
+  const diameter = useTransform(springRadius, (r) => r * 2);
 
-  const clipPath = useMotionTemplate`circle(${springRadius}px at ${springX}px ${springY}px)`;
+  // Inner duplicate text is offset so it lines up with the real text
+  // underneath regardless of where the (variably sized, variably
+  // positioned) circle currently sits.
+  const innerLeft = useTransform([diameter, springX], ([d, x]: number[]) => d / 2 - x);
+  const innerTop = useTransform([diameter, springY], ([d, y]: number[]) => d / 2 - y);
 
   const updatePosition = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = containerRef.current?.getBoundingClientRect();
@@ -57,10 +69,15 @@ export default function TextReveal({ children, radius }: TextRevealProps) {
       <motion.div
         aria-hidden="true"
         role="presentation"
-        className="absolute inset-0 bg-hero-orange pointer-events-none will-change-[clip-path] [&_*]:!text-hero-bg"
-        style={{ clipPath }}
+        className="absolute rounded-full overflow-hidden bg-hero-orange pointer-events-none will-change-transform"
+        style={{ left: springX, top: springY, x: "-50%", y: "-50%", width: diameter, height: diameter }}
       >
-        {children}
+        <motion.div
+          className="absolute [&_*]:!text-hero-bg"
+          style={{ left: innerLeft, top: innerTop }}
+        >
+          {children}
+        </motion.div>
       </motion.div>
     </div>
   );
