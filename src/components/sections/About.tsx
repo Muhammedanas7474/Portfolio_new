@@ -37,15 +37,15 @@ export default function About() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
-              <TextReveal>
+              <TextReveal radius={34}>
                 <h2
                   style={{ fontFamily: "var(--font-heading)" }}
                   className="text-[8vw] sm:text-5xl md:text-6xl lg:text-[4.2rem] font-bold leading-[1.08] tracking-tight text-beige"
                 >
-                  I&apos;m a <span className="text-hero-orange">backend-focused</span> software
-                  engineer with a strong focus on building{" "}
-                  <span className="text-hero-orange">secure, scalable</span> systems and shipping
-                  high quality digital products.
+                  I&apos;m a software engineer who builds{" "}
+                  <span className="text-hero-orange">secure, scalable</span> backend systems and
+                  ships <span className="text-hero-orange">production-ready</span> digital
+                  products.
                 </h2>
               </TextReveal>
             </motion.div>

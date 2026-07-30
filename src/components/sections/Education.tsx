@@ -27,7 +27,7 @@ export default function Education() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <TextReveal>
+          <TextReveal radius={34}>
             <h2
               style={{ fontFamily: "var(--font-heading)" }}
               className="max-w-3xl text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight text-beige"
