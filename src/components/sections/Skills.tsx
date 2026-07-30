@@ -3,74 +3,49 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { skillCategories } from "@/lib/constants";
-import SectionHeading from "@/components/ui/SectionHeading";
-import GlassCard from "@/components/ui/GlassCard";
-
-function SkillBar({ name, level, delay }: { name: string; level: number; delay: number }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
-  return (
-    <div ref={ref} className="space-y-2">
-      <div className="flex items-center justify-between text-sm">
-        <span className="text-text-secondary font-medium">{name}</span>
-        <span className="text-text-muted text-xs">{level}%</span>
-      </div>
-      <div className="h-1.5 w-full rounded-full bg-white/5 overflow-hidden">
-        <motion.div
-          initial={{ width: 0 }}
-          animate={isInView ? { width: `${level}%` } : { width: 0 }}
-          transition={{ duration: 1, delay, ease: [0.22, 1, 0.36, 1] }}
-          className="h-full rounded-full bg-gradient-to-r from-accent to-accent-blue"
-        />
-      </div>
-    </div>
-  );
-}
 
 export default function Skills() {
-  return (
-    <section id="skills" className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-4">
-        <SectionHeading
-          title="Technical Arsenal"
-          subtitle="The technologies and tools I use to bring ideas to life"
-        />
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  return (
+    <section id="skills" className="relative py-28 md:py-36 overflow-hidden">
+      <div className="container mx-auto px-6 md:px-10" ref={ref}>
+        <span className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.4em] text-beige/60 mb-8">
+          <span className="h-1.5 w-1.5 rounded-full bg-hero-orange" aria-hidden="true" />
+          What I Work With
+        </span>
+
+        <div className="border-t border-beige/10">
           {skillCategories.map((category, idx) => (
             <motion.div
               key={category.title}
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: idx * 0.08 }}
+              className="group border-b border-beige/10"
             >
-              <GlassCard className="p-8 h-full">
-                <h3 className="text-xl font-bold text-text-primary mb-6 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-accent" />
+              <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-12 py-8 md:py-10 px-4 md:px-6 -mx-4 md:-mx-6 transition-colors duration-300 group-hover:bg-hero-orange">
+                <h3
+                  style={{ fontFamily: "var(--font-heading)" }}
+                  className="w-full md:w-64 shrink-0 text-3xl md:text-5xl font-bold uppercase tracking-tight text-beige group-hover:text-hero-bg transition-colors duration-300"
+                >
                   {category.title}
                 </h3>
-                <div className="space-y-4">
-                  {category.skills.map((skill, i) => (
-                    <SkillBar
+                <div className="flex flex-wrap gap-2.5">
+                  {category.skills.map((skill) => (
+                    <span
                       key={skill.name}
-                      name={skill.name}
-                      level={skill.level}
-                      delay={i * 0.08}
-                    />
+                      className="text-xs md:text-sm uppercase tracking-wider text-beige/55 group-hover:text-hero-bg/75 border border-beige/15 group-hover:border-hero-bg/30 px-3.5 py-1.5 rounded-full transition-colors duration-300"
+                    >
+                      {skill.name}
+                    </span>
                   ))}
                 </div>
-              </GlassCard>
+              </div>
             </motion.div>
           ))}
         </div>
-      </div>
-
-      {/* Background Decor */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none -z-10" aria-hidden="true">
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-[100px]" />
-        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-[100px]" />
       </div>
     </section>
   );
