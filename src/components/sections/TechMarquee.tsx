@@ -7,7 +7,7 @@ export default function TechMarquee() {
   const items = [...techStack, ...techStack];
 
   return (
-    <section className="py-16 relative overflow-hidden" aria-label="Tech stack">
+    <section className="py-14 relative overflow-hidden border-y border-beige/10" aria-label="Tech stack">
       {/* Gradient fades on edges */}
       <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-bg to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-bg to-transparent z-10 pointer-events-none" />
@@ -24,7 +24,7 @@ export default function TechMarquee() {
           {items.map((tech, i) => (
             <div
               key={`row1-${i}`}
-              className="flex-shrink-0 px-6 py-3 rounded-xl glass text-text-secondary text-sm font-medium whitespace-nowrap hover:text-accent hover:border-accent/20 transition-colors cursor-default"
+              className="flex-shrink-0 px-6 py-3 rounded-full border border-beige/15 text-beige/55 text-sm font-medium uppercase tracking-wider whitespace-nowrap hover:text-hero-orange hover:border-hero-orange/30 transition-colors cursor-default"
             >
               {tech}
             </div>
@@ -44,7 +44,7 @@ export default function TechMarquee() {
           {[...items].reverse().map((tech, i) => (
             <div
               key={`row2-${i}`}
-              className="flex-shrink-0 px-6 py-3 rounded-xl glass text-text-secondary text-sm font-medium whitespace-nowrap hover:text-accent hover:border-accent/20 transition-colors cursor-default"
+              className="flex-shrink-0 px-6 py-3 rounded-full border border-beige/15 text-beige/55 text-sm font-medium uppercase tracking-wider whitespace-nowrap hover:text-hero-orange hover:border-hero-orange/30 transition-colors cursor-default"
             >
               {tech}
             </div>

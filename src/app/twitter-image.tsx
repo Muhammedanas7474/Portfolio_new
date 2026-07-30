@@ -16,9 +16,9 @@ export default async function Image() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          background: "#080808",
+          background: "#0c0c0c",
           backgroundImage:
-            "radial-gradient(circle at 15% 15%, rgba(79,70,229,0.35), transparent 45%), radial-gradient(circle at 85% 85%, rgba(6,182,212,0.25), transparent 45%)",
+            "radial-gradient(circle at 15% 15%, rgba(244,90,42,0.25), transparent 45%), radial-gradient(circle at 85% 85%, rgba(244,90,42,0.12), transparent 45%)",
         }}
       >
         <div
@@ -35,10 +35,10 @@ export default async function Image() {
               width: 14,
               height: 14,
               borderRadius: 999,
-              background: "#7C3AED",
+              background: "#f45a2a",
             }}
           />
-          <span style={{ color: "#9EA3AE", fontSize: 28, letterSpacing: 4 }}>
+          <span style={{ color: "#a8a396", fontSize: 28, letterSpacing: 4 }}>
             KERALA, INDIA
           </span>
         </div>
@@ -47,7 +47,7 @@ export default async function Image() {
             display: "flex",
             fontSize: 84,
             fontWeight: 900,
-            color: "#ffffff",
+            color: "#e7e2d5",
             letterSpacing: -2,
             lineHeight: 1.05,
           }}
@@ -60,10 +60,7 @@ export default async function Image() {
             fontSize: 36,
             fontWeight: 600,
             marginTop: 24,
-            backgroundImage:
-              "linear-gradient(135deg, #4F46E5, #7C3AED, #06B6D4)",
-            backgroundClip: "text",
-            color: "transparent",
+            color: "#f45a2a",
           }}
         >
           {personalInfo.shortRole}
@@ -72,7 +69,7 @@ export default async function Image() {
           style={{
             display: "flex",
             fontSize: 28,
-            color: "#9EA3AE",
+            color: "#a8a396",
             marginTop: 28,
             maxWidth: 900,
           }}

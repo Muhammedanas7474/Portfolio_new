@@ -1,11 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send, Check, Copy } from "lucide-react";
+import { useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { Send, Check, Copy } from "lucide-react";
 import { personalInfo, socialLinks } from "@/lib/constants";
-import SectionHeading from "@/components/ui/SectionHeading";
-import GlassCard from "@/components/ui/GlassCard";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/SocialIcons";
 
 type Status = "idle" | "sending" | "success" | "error";
@@ -20,6 +18,8 @@ export default function Contact() {
 
   const [status, setStatus] = useState<Status>("idle");
   const [copied, setCopied] = useState(false);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const handleCopyEmail = async () => {
     try {
@@ -75,183 +75,176 @@ export default function Contact() {
   const renderIcon = (iconName: string) => {
     switch (iconName.toLowerCase()) {
       case "github":
-        return <GithubIcon size={20} />;
+        return <GithubIcon size={18} />;
       case "linkedin":
-        return <LinkedinIcon size={20} />;
+        return <LinkedinIcon size={18} />;
       default:
         return null;
     }
   };
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-4">
-        <SectionHeading
-          title="Let's Build Something Amazing"
-          subtitle="Have a role, project, or idea in mind? I'd love to hear from you."
-        />
+    <section id="contact" className="relative py-28 md:py-36 overflow-hidden">
+      <div className="container mx-auto px-6 md:px-10" ref={ref}>
+        <span className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.4em] text-beige/60 mb-8">
+          <span className="h-1.5 w-1.5 rounded-full bg-hero-orange" aria-hidden="true" />
+          Contact
+        </span>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <motion.h2
+          initial={{ opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          style={{ fontFamily: "var(--font-heading)" }}
+          className="max-w-3xl text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight text-beige"
+        >
+          Let&apos;s build something <span className="text-hero-orange">amazing</span> together.
+        </motion.h2>
+
+        <a
+          href={`mailto:${personalInfo.email}`}
+          style={{ fontFamily: "var(--font-heading)" }}
+          className="mt-10 md:mt-14 inline-block text-3xl sm:text-4xl md:text-5xl font-bold text-beige/90 hover:text-hero-orange transition-colors break-all"
+        >
+          {personalInfo.email}
+        </a>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-14 lg:gap-20 mt-16 md:mt-20">
           {/* Info Side */}
-          <div className="lg:col-span-1 space-y-6">
-            <GlassCard className="p-8 space-y-8">
-              <div className="space-y-6">
-                <h3 className="text-xl font-bold text-text-primary">Contact Information</h3>
+          <div className="space-y-12">
+            <div className="flex items-center gap-3">
+              <a
+                href={`mailto:${personalInfo.email}`}
+                className="text-sm text-beige/50 hover:text-hero-orange transition-colors"
+              >
+                Copy email
+              </a>
+              <button
+                type="button"
+                onClick={handleCopyEmail}
+                aria-label="Copy email address"
+                className="text-beige/50 hover:text-hero-orange transition-colors"
+              >
+                {copied ? <Check size={14} /> : <Copy size={14} />}
+              </button>
+            </div>
 
-                <div className="flex items-start gap-4 group">
-                  <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all">
-                    <Mail size={20} />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-xs text-text-muted uppercase tracking-widest font-bold">Email</p>
-                    <div className="flex items-center gap-2">
-                      <a
-                        href={`mailto:${personalInfo.email}`}
-                        className="text-text-secondary hover:text-accent transition-colors break-words text-sm"
-                      >
-                        {personalInfo.email}
-                      </a>
-                      <button
-                        type="button"
-                        onClick={handleCopyEmail}
-                        aria-label="Copy email address"
-                        className="text-text-muted hover:text-accent transition-colors shrink-0"
-                      >
-                        {copied ? <Check size={14} /> : <Copy size={14} />}
-                      </button>
-                    </div>
-                  </div>
-                </div>
+            <div className="border-t border-beige/10 pt-6">
+              <p className="text-xs uppercase tracking-[0.3em] text-beige/40 mb-2">Phone</p>
+              <a
+                href={`tel:${personalInfo.phone.replace(/\s+/g, "")}`}
+                className="text-xl text-beige hover:text-hero-orange transition-colors"
+              >
+                {personalInfo.phone}
+              </a>
+            </div>
 
-                <div className="flex items-start gap-4 group">
-                  <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all">
-                    <Phone size={20} />
-                  </div>
-                  <div>
-                    <p className="text-xs text-text-muted uppercase tracking-widest font-bold">Phone</p>
-                    <a href={`tel:${personalInfo.phone.replace(/\s+/g, "")}`} className="text-text-secondary hover:text-accent transition-colors">
-                      {personalInfo.phone}
-                    </a>
-                  </div>
-                </div>
+            <div className="border-t border-beige/10 pt-6">
+              <p className="text-xs uppercase tracking-[0.3em] text-beige/40 mb-2">Location</p>
+              <p className="text-xl text-beige">{personalInfo.location}</p>
+            </div>
 
-                <div className="flex items-start gap-4 group">
-                  <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all">
-                    <MapPin size={20} />
-                  </div>
-                  <div>
-                    <p className="text-xs text-text-muted uppercase tracking-widest font-bold">Location</p>
-                    <p className="text-text-secondary">{personalInfo.location}</p>
-                  </div>
-                </div>
+            <div className="border-t border-beige/10 pt-6">
+              <p className="text-xs uppercase tracking-[0.3em] text-beige/40 mb-4">Find me online</p>
+              <div className="flex gap-3">
+                {socialLinks.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-11 h-11 rounded-full border border-beige/15 flex items-center justify-center text-beige/60 hover:text-hero-bg hover:bg-hero-orange hover:border-hero-orange transition-all active:scale-90"
+                    aria-label={link.name}
+                  >
+                    {renderIcon(link.name)}
+                  </a>
+                ))}
               </div>
-
-              <div className="pt-6 border-t border-white/5">
-                <p className="text-sm text-text-secondary mb-4">Find me online</p>
-                <div className="flex gap-4">
-                  {socialLinks.map((link) => (
-                    <a
-                      key={link.name}
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 rounded-lg glass border border-white/5 flex items-center justify-center text-text-muted hover:text-accent hover:border-accent/20 transition-all active:scale-90"
-                      aria-label={link.name}
-                    >
-                      {renderIcon(link.name)}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </GlassCard>
+            </div>
           </div>
 
           {/* Form Side */}
-          <div className="lg:col-span-2">
-            <GlassCard className="p-8">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label htmlFor="contact-name" className="text-sm font-medium text-text-secondary ml-1">
-                      Your Name
-                    </label>
-                    <input
-                      id="contact-name"
-                      type="text"
-                      required
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-accent outline-none transition-all text-text-primary"
-                      placeholder="Jane Doe"
-                      value={formState.name}
-                      onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="contact-email" className="text-sm font-medium text-text-secondary ml-1">
-                      Your Email
-                    </label>
-                    <input
-                      id="contact-email"
-                      type="email"
-                      required
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-accent outline-none transition-all text-text-primary"
-                      placeholder="jane@company.com"
-                      value={formState.email}
-                      onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                    />
-                  </div>
-                </div>
+          <form onSubmit={handleSubmit} className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <label htmlFor="contact-name" className="text-xs uppercase tracking-[0.3em] text-beige/40 block mb-3">
+                  Your Name
+                </label>
+                <input
+                  id="contact-name"
+                  type="text"
+                  required
+                  className="w-full bg-transparent border-b border-beige/20 focus:border-hero-orange outline-none transition-colors text-beige py-2 placeholder:text-beige/25"
+                  placeholder="Jane Doe"
+                  value={formState.name}
+                  onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                />
+              </div>
+              <div>
+                <label htmlFor="contact-email" className="text-xs uppercase tracking-[0.3em] text-beige/40 block mb-3">
+                  Your Email
+                </label>
+                <input
+                  id="contact-email"
+                  type="email"
+                  required
+                  className="w-full bg-transparent border-b border-beige/20 focus:border-hero-orange outline-none transition-colors text-beige py-2 placeholder:text-beige/25"
+                  placeholder="jane@company.com"
+                  value={formState.email}
+                  onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                />
+              </div>
+            </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="contact-subject" className="text-sm font-medium text-text-secondary ml-1">
-                    Subject
-                  </label>
-                  <input
-                    id="contact-subject"
-                    type="text"
-                    required
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-accent outline-none transition-all text-text-primary"
-                    placeholder="Role / Project Inquiry"
-                    value={formState.subject}
-                    onChange={(e) => setFormState({ ...formState, subject: e.target.value })}
-                  />
-                </div>
+            <div>
+              <label htmlFor="contact-subject" className="text-xs uppercase tracking-[0.3em] text-beige/40 block mb-3">
+                Subject
+              </label>
+              <input
+                id="contact-subject"
+                type="text"
+                required
+                className="w-full bg-transparent border-b border-beige/20 focus:border-hero-orange outline-none transition-colors text-beige py-2 placeholder:text-beige/25"
+                placeholder="Role / Project Inquiry"
+                value={formState.subject}
+                onChange={(e) => setFormState({ ...formState, subject: e.target.value })}
+              />
+            </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="contact-message" className="text-sm font-medium text-text-secondary ml-1">
-                    Message
-                  </label>
-                  <textarea
-                    id="contact-message"
-                    required
-                    rows={6}
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-accent outline-none transition-all text-text-primary resize-none"
-                    placeholder="Tell me more about the role or project..."
-                    value={formState.message}
-                    onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                  />
-                </div>
+            <div>
+              <label htmlFor="contact-message" className="text-xs uppercase tracking-[0.3em] text-beige/40 block mb-3">
+                Message
+              </label>
+              <textarea
+                id="contact-message"
+                required
+                rows={4}
+                className="w-full bg-transparent border-b border-beige/20 focus:border-hero-orange outline-none transition-colors text-beige py-2 resize-none placeholder:text-beige/25"
+                placeholder="Tell me more about the role or project..."
+                value={formState.message}
+                onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+              />
+            </div>
 
-                <button
-                  type="submit"
-                  disabled={status === "sending"}
-                  className="w-full md:w-auto px-10 py-4 bg-accent hover:bg-accent-hover text-white rounded-xl font-bold transition-all shadow-lg shadow-accent/20 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed group"
-                >
-                  {status === "sending" ? (
-                    "Sending..."
-                  ) : status === "success" ? (
-                    "Message Sent!"
-                  ) : status === "error" ? (
-                    "Something went wrong — try again"
-                  ) : (
-                    <>
-                      Send Message
-                      <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </>
-                  )}
-                </button>
-              </form>
-            </GlassCard>
-          </div>
+            <button
+              type="submit"
+              disabled={status === "sending"}
+              className="px-10 py-4 bg-hero-orange hover:bg-hero-orange/90 text-hero-bg rounded-full font-semibold text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed group"
+            >
+              {status === "sending" ? (
+                "Sending..."
+              ) : status === "success" ? (
+                "Message Sent!"
+              ) : status === "error" ? (
+                "Something went wrong — try again"
+              ) : (
+                <>
+                  Send Message
+                  <Send size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </>
+              )}
+            </button>
+          </form>
         </div>
       </div>
     </section>
