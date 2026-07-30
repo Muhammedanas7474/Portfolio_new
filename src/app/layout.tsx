@@ -74,7 +74,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#080808",
+  themeColor: "#0c0c0c",
   colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
@@ -88,7 +88,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} ${bebasNeue.variable} font-sans bg-bg text-text-primary antialiased selection:bg-accent/30 selection:text-accent md:cursor-none`}
+        className={`${inter.variable} ${spaceGrotesk.variable} ${bebasNeue.variable} font-sans bg-bg text-text-primary antialiased selection:bg-hero-orange/30 selection:text-beige md:cursor-none`}
       >
         <JsonLd />
         <a href="#main-content" className="skip-nav">
