@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowUp, ArrowUpRight } from "lucide-react";
 import { personalInfo, socialLinks } from "@/lib/constants";
+import TextReveal from "@/components/ui/TextReveal";
 
 const connectLinks = [
   ...socialLinks.map((link) => ({ label: link.name, href: link.url, external: true })),
@@ -22,15 +23,20 @@ export default function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-beige/10 pt-24 pb-8" ref={ref}>
       <div className="container mx-auto px-6 md:px-10">
-        <motion.blockquote
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          style={{ fontFamily: "var(--font-heading)" }}
-          className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight text-beige max-w-3xl"
         >
-          &ldquo;Good code is <span className="text-hero-orange">honest</span>.&rdquo;
-        </motion.blockquote>
+          <TextReveal>
+            <blockquote
+              style={{ fontFamily: "var(--font-heading)" }}
+              className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight text-beige max-w-3xl"
+            >
+              &ldquo;Good code is <span className="text-hero-orange">honest</span>.&rdquo;
+            </blockquote>
+          </TextReveal>
+        </motion.div>
 
         <div className="mt-20 md:mt-24">
           <span className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.4em] text-beige/60 mb-6">

@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { education } from "@/lib/constants";
+import TextReveal from "@/components/ui/TextReveal";
 
 function startYear(duration: string) {
   const match = duration.match(/\d{4}/);
@@ -21,15 +22,20 @@ export default function Education() {
           Education
         </span>
 
-        <motion.h2
+        <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          style={{ fontFamily: "var(--font-heading)" }}
-          className="max-w-3xl text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight text-beige"
         >
-          Academic <span className="text-hero-orange">background</span>
-        </motion.h2>
+          <TextReveal>
+            <h2
+              style={{ fontFamily: "var(--font-heading)" }}
+              className="max-w-3xl text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight text-beige"
+            >
+              Academic <span className="text-hero-orange">background</span>
+            </h2>
+          </TextReveal>
+        </motion.div>
 
         <div className="mt-16 md:mt-20 border-t border-beige/10">
           {education.map((edu, index) => (

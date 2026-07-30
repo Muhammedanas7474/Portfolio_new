@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { Send, Check, Copy } from "lucide-react";
 import { personalInfo, socialLinks } from "@/lib/constants";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/SocialIcons";
+import TextReveal from "@/components/ui/TextReveal";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -91,15 +92,21 @@ export default function Contact() {
           Contact
         </span>
 
-        <motion.h2
+        <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          style={{ fontFamily: "var(--font-heading)" }}
-          className="max-w-3xl text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight text-beige"
         >
-          Let&apos;s build something <span className="text-hero-orange">amazing</span> together.
-        </motion.h2>
+          <TextReveal>
+            <h2
+              style={{ fontFamily: "var(--font-heading)" }}
+              className="max-w-3xl text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight text-beige"
+            >
+              Let&apos;s build something <span className="text-hero-orange">amazing</span>{" "}
+              together.
+            </h2>
+          </TextReveal>
+        </motion.div>
 
         <a
           href={`mailto:${personalInfo.email}`}

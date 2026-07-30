@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { experiences } from "@/lib/constants";
+import TextReveal from "@/components/ui/TextReveal";
 
 function timelineLabel(index: number, duration: string) {
   if (index === 0) return "NOW";
@@ -22,17 +23,22 @@ export default function Experience() {
           Experience
         </span>
 
-        <motion.h2
+        <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          style={{ fontFamily: "var(--font-heading)" }}
-          className="max-w-4xl text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight text-beige"
         >
-          Building production software in{" "}
-          <span className="text-hero-orange">banking &amp; fintech</span> since day one of my
-          career.
-        </motion.h2>
+          <TextReveal>
+            <h2
+              style={{ fontFamily: "var(--font-heading)" }}
+              className="max-w-4xl text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight text-beige"
+            >
+              Building production software in{" "}
+              <span className="text-hero-orange">banking &amp; fintech</span> since day one of my
+              career.
+            </h2>
+          </TextReveal>
+        </motion.div>
 
         <div className="mt-16 md:mt-20 border-t border-beige/10">
           {experiences.map((exp, index) => (

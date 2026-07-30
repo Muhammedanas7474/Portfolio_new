@@ -6,6 +6,7 @@ import { ExternalLink } from "lucide-react";
 import { projects } from "@/lib/constants";
 import type { Project } from "@/types";
 import { GithubIcon } from "@/components/ui/SocialIcons";
+import TextReveal from "@/components/ui/TextReveal";
 
 const categories = ["All", ...new Set(projects.map((p) => p.category))];
 
@@ -26,15 +27,20 @@ export default function Projects() {
         </span>
 
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16 md:mb-20">
-          <motion.h2
+          <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            style={{ fontFamily: "var(--font-heading)" }}
-            className="max-w-2xl text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight text-beige"
           >
-            Selected <span className="text-hero-orange">projects</span>
-          </motion.h2>
+            <TextReveal>
+              <h2
+                style={{ fontFamily: "var(--font-heading)" }}
+                className="max-w-2xl text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight text-beige"
+              >
+                Selected <span className="text-hero-orange">projects</span>
+              </h2>
+            </TextReveal>
+          </motion.div>
 
           <div
             className="flex flex-wrap items-center gap-3"

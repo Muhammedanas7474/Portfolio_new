@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { personalInfo, stats } from "@/lib/constants";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
+import TextReveal from "@/components/ui/TextReveal";
 
 export default function About() {
   const ref = useRef(null);
@@ -31,18 +32,23 @@ export default function About() {
 
         <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-14 lg:gap-16 items-start">
           <div>
-            <motion.h2
+            <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              style={{ fontFamily: "var(--font-heading)" }}
-              className="text-[8vw] sm:text-5xl md:text-6xl lg:text-[4.2rem] font-bold leading-[1.08] tracking-tight text-beige"
             >
-              I&apos;m a <span className="text-hero-orange">backend-focused</span> software
-              engineer with a strong focus on building{" "}
-              <span className="text-hero-orange">secure, scalable</span> systems and shipping
-              high quality digital products.
-            </motion.h2>
+              <TextReveal>
+                <h2
+                  style={{ fontFamily: "var(--font-heading)" }}
+                  className="text-[8vw] sm:text-5xl md:text-6xl lg:text-[4.2rem] font-bold leading-[1.08] tracking-tight text-beige"
+                >
+                  I&apos;m a <span className="text-hero-orange">backend-focused</span> software
+                  engineer with a strong focus on building{" "}
+                  <span className="text-hero-orange">secure, scalable</span> systems and shipping
+                  high quality digital products.
+                </h2>
+              </TextReveal>
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
