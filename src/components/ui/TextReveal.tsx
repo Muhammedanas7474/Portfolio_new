@@ -7,8 +7,6 @@ interface TextRevealProps {
   children: ReactNode;
   /** Reveal circle radius in px. Defaults to a value scaled to viewport width. */
   radius?: number;
-  /** Extra classes on the interaction wrapper — use for buffer padding around tight text bboxes. */
-  className?: string;
 }
 
 /**
@@ -16,7 +14,7 @@ interface TextRevealProps {
  * color-inverted copy underneath — the signature interaction from the
  * reference site, first built for the Hero and reused across headings.
  */
-export default function TextReveal({ children, radius, className = "" }: TextRevealProps) {
+export default function TextReveal({ children, radius }: TextRevealProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -53,7 +51,7 @@ export default function TextReveal({ children, radius, className = "" }: TextRev
       onMouseMove={updatePosition}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
-      className={`relative select-none md:cursor-none ${className}`}
+      className="relative select-none md:cursor-none"
     >
       {children}
       <motion.div
