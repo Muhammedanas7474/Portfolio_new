@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 interface TextRevealProps {
@@ -23,9 +23,26 @@ interface TextRevealProps {
  */
 export default function TextReveal({ children, radius }: TextRevealProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState(0);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const circleRadius = useMotionValue(0);
+
+  // The duplicated reveal text below is absolutely positioned with only
+  // `left`/`top` set, so without an explicit width it shrinks-to-fit the
+  // small circle instead of the real heading's width — causing it to
+  // re-wrap onto different lines than the real text and look garbled
+  // under the cursor. Locking it to the measured container width keeps
+  // both copies wrapping identically so they line up pixel-for-pixel.
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver(([entry]) => {
+      setContainerWidth(entry.contentRect.width);
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const springX = useSpring(mouseX, { stiffness: 180, damping: 22, mass: 0.4 });
   const springY = useSpring(mouseY, { stiffness: 180, damping: 22, mass: 0.4 });
@@ -74,7 +91,7 @@ export default function TextReveal({ children, radius }: TextRevealProps) {
       >
         <motion.div
           className="absolute [&_*]:!text-hero-bg"
-          style={{ left: innerLeft, top: innerTop }}
+          style={{ left: innerLeft, top: innerTop, width: containerWidth }}
         >
           {children}
         </motion.div>

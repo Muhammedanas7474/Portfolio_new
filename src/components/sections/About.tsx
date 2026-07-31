@@ -13,12 +13,6 @@ export default function About() {
 
   return (
     <section id="about" className="relative overflow-hidden py-28 md:py-36">
-      {/* Decorative orange circle, reference-style */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-40 top-16 h-72 w-72 md:h-[26rem] md:w-[26rem] rounded-full bg-hero-orange/90 blur-[2px] opacity-90 -z-10"
-      />
-
       <div className="container mx-auto px-6 md:px-10" ref={ref}>
         <motion.span
           initial={{ opacity: 0, y: 12 }}
@@ -42,10 +36,10 @@ export default function About() {
                   style={{ fontFamily: "var(--font-heading)" }}
                   className="text-[8vw] sm:text-5xl md:text-6xl lg:text-[4.2rem] font-bold leading-[1.08] tracking-tight text-beige"
                 >
-                  I&apos;m a software engineer who builds{" "}
+                  I&apos;m a <span className="text-hero-orange">full-stack software engineer</span>{" "}
+                  with a strong focus on building{" "}
                   <span className="text-hero-orange">secure, scalable</span> backend systems and
-                  ships <span className="text-hero-orange">production-ready</span> digital
-                  products.
+                  shipping production-ready digital products.
                 </h2>
               </TextReveal>
             </motion.div>
