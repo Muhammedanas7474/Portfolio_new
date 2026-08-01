@@ -20,7 +20,7 @@ export default function Projects() {
 
   return (
     <section id="projects" className="relative py-28 md:py-36 overflow-hidden">
-      <div className="container mx-auto px-6 md:px-10" ref={ref}>
+      <div className="container mx-auto px-12 md:px-10" ref={ref}>
         <span className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.4em] text-beige/60 mb-8">
           <span className="h-1.5 w-1.5 rounded-full bg-hero-orange" aria-hidden="true" />
           Work
