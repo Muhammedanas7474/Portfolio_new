@@ -5,18 +5,13 @@ import { motion, useInView } from "framer-motion";
 import { education } from "@/lib/constants";
 import TextReveal from "@/components/ui/TextReveal";
 
-function startYear(duration: string) {
-  const match = duration.match(/\d{4}/);
-  return match ? match[0] : duration;
-}
-
 export default function Education() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <section id="education" className="relative py-28 md:py-36 overflow-hidden">
-      <div className="container mx-auto px-6 md:px-10" ref={ref}>
+      <div className="container mx-auto px-12 md:px-10" ref={ref}>
         <span className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.4em] text-beige/60 mb-8">
           <span className="h-1.5 w-1.5 rounded-full bg-hero-orange" aria-hidden="true" />
           Education
@@ -47,13 +42,7 @@ export default function Education() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group border-b border-beige/10"
             >
-              <div className="grid grid-cols-[80px_1fr] md:grid-cols-[160px_1fr] items-baseline gap-4 md:gap-8 py-8 md:py-10 px-4 md:px-6 -mx-4 md:-mx-6 transition-colors duration-300 group-hover:bg-hero-orange">
-                <span
-                  style={{ fontFamily: "var(--font-heading)" }}
-                  className="text-lg md:text-2xl font-bold text-hero-orange group-hover:text-hero-bg transition-colors duration-300"
-                >
-                  {startYear(edu.duration)}
-                </span>
+              <div className="py-8 md:py-10 px-4 md:px-6 -mx-4 md:-mx-6 transition-colors duration-300 group-hover:bg-hero-orange">
                 <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4">
                   <div>
                     <h3

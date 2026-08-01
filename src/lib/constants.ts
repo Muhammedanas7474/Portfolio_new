@@ -137,7 +137,7 @@ export const experiences = [
   {
     company: "Bridgeon Solutions",
     position: "Python Full Stack Intern",
-    duration: "Jun 2023 - Dec 2023",
+    duration: "Jun 2025 - Dec 2025",
     responsibilities: [
       "Built a full-featured eCommerce platform from the ground up during a full-stack training program.",
       "Developed 15+ reusable React components powering product listings, cart, and checkout flows.",
@@ -216,7 +216,7 @@ export const education = [
     institution: "PeeKay CICS Arts and Science College",
     university: "Calicut University",
     location: "Kerala, India",
-    duration: "2021 - 2024",
+    duration: "2022 - 2025",
     description:
       "Specialized in computer science fundamentals and application development, covering programming, databases, and software engineering practices.",
   },

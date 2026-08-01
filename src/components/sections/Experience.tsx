@@ -17,7 +17,7 @@ export default function Experience() {
 
   return (
     <section id="experience" className="relative py-28 md:py-36 overflow-hidden">
-      <div className="container mx-auto px-6 md:px-10" ref={ref}>
+      <div className="container mx-auto px-12 md:px-10" ref={ref}>
         <span className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.4em] text-beige/60 mb-8">
           <span className="h-1.5 w-1.5 rounded-full bg-hero-orange" aria-hidden="true" />
           Experience
@@ -57,42 +57,16 @@ export default function Experience() {
                 >
                   {timelineLabel(index, exp.duration)}
                 </span>
-                <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4">
-                  <div>
-                    <h3
-                      style={{ fontFamily: "var(--font-heading)" }}
-                      className="text-2xl md:text-4xl font-bold text-beige group-hover:text-hero-bg transition-colors duration-300"
-                    >
-                      {exp.position}
-                    </h3>
-                    <p className="text-beige/50 group-hover:text-hero-bg/70 transition-colors duration-300 mt-1">
-                      {exp.company}
-                    </p>
-                  </div>
-                  <span className="text-xs uppercase tracking-[0.2em] text-beige/40 group-hover:text-hero-bg/60 transition-colors duration-300 whitespace-nowrap">
-                    {exp.duration}
-                  </span>
-                </div>
-              </div>
-
-              <div className="pb-10 px-0 md:px-0">
-                <ul className="space-y-2.5 max-w-3xl">
-                  {exp.responsibilities.map((resp, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-beige/50 text-sm md:text-base leading-relaxed">
-                      <span className="mt-2 w-1 h-1 rounded-full bg-hero-orange shrink-0" aria-hidden="true" />
-                      {resp}
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex flex-wrap gap-2 mt-5">
-                  {exp.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="text-[10px] uppercase tracking-wider text-beige/50 border border-beige/15 px-2.5 py-1 rounded-full"
-                    >
-                      {t}
-                    </span>
-                  ))}
+                <div>
+                  <h3
+                    style={{ fontFamily: "var(--font-heading)" }}
+                    className="text-2xl md:text-4xl font-bold text-beige group-hover:text-hero-bg transition-colors duration-300"
+                  >
+                    {exp.position}
+                  </h3>
+                  <p className="text-beige/50 group-hover:text-hero-bg/70 transition-colors duration-300 mt-1">
+                    {exp.company}
+                  </p>
                 </div>
               </div>
             </motion.div>
