@@ -13,7 +13,7 @@ export default function About() {
 
   return (
     <section id="about" className="relative overflow-hidden py-28 md:py-36">
-      <div className="container mx-auto px-6 md:px-10" ref={ref}>
+      <div className="container mx-auto px-12 md:px-10" ref={ref}>
         <motion.span
           initial={{ opacity: 0, y: 12 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -47,19 +47,6 @@ export default function About() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-10 space-y-5 max-w-2xl"
-            >
-              {personalInfo.bio.map((paragraph, idx) => (
-                <p key={idx} className="text-beige/55 text-base md:text-lg leading-relaxed">
-                  {paragraph}
-                </p>
-              ))}
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.4 }}
               className="mt-12 flex flex-wrap gap-4"
             >
@@ -83,7 +70,7 @@ export default function About() {
             initial={{ opacity: 0, scale: 0.96 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="relative w-full max-w-xs mx-auto lg:mx-0 lg:ml-auto aspect-[4/5] group"
+            className="relative w-full max-w-xs mx-auto lg:mx-0 lg:ml-auto lg:mt-5 aspect-[4/5] group"
           >
             <div className="relative h-full w-full overflow-hidden border border-beige/10">
               <Image
