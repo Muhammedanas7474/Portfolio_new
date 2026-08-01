@@ -2,14 +2,14 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ArrowUp, ArrowUpRight } from "lucide-react";
-import { personalInfo, socialLinks } from "@/lib/constants";
+import { ArrowDownLeft, ArrowUp } from "lucide-react";
+import { heroSocialLinks, personalInfo } from "@/lib/constants";
 import TextReveal from "@/components/ui/TextReveal";
 
-const connectLinks = [
-  ...socialLinks.map((link) => ({ label: link.name, href: link.url, external: true })),
-  { label: "Email", href: `mailto:${personalInfo.email}`, external: false },
-  { label: "Phone", href: `tel:${personalInfo.phone.replace(/\s+/g, "")}`, external: false },
+const connectSocials = heroSocialLinks.filter((link) => link.icon !== "email");
+const socialColumns = [
+  connectSocials.slice(0, Math.ceil(connectSocials.length / 2)),
+  connectSocials.slice(Math.ceil(connectSocials.length / 2)),
 ];
 
 export default function Footer() {
@@ -22,7 +22,7 @@ export default function Footer() {
 
   return (
     <footer className="relative overflow-hidden border-t border-beige/10 pt-24 pb-8" ref={ref}>
-      <div className="container mx-auto px-6 md:px-10">
+      <div className="container mx-auto px-12 md:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -39,33 +39,58 @@ export default function Footer() {
         </motion.div>
 
         <div className="mt-20 md:mt-24">
-          <span className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.4em] text-beige/60 mb-6">
+          <span className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.4em] text-beige/60 mb-10">
             <span className="h-1.5 w-1.5 rounded-full bg-hero-orange" aria-hidden="true" />
             Connect
           </span>
 
-          <div className="border-t border-beige/10">
-            {connectLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target={link.external ? "_blank" : undefined}
-                rel={link.external ? "noopener noreferrer" : undefined}
-                className="group flex items-center justify-between border-b border-beige/10 py-5 md:py-6 px-4 md:px-6 -mx-4 md:-mx-6 transition-colors duration-300 hover:bg-hero-orange"
-              >
-                <span
-                  style={{ fontFamily: "var(--font-heading)" }}
-                  className="text-2xl md:text-4xl font-bold text-beige group-hover:text-hero-bg transition-colors duration-300"
-                >
-                  {link.label}
-                </span>
-                <ArrowUpRight
-                  size={24}
-                  className="text-beige/40 group-hover:text-hero-bg transition-colors duration-300"
-                  aria-hidden="true"
-                />
-              </a>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 md:gap-x-10">
+            {socialColumns.map((column, colIdx) => (
+              <div key={colIdx} className="space-y-4">
+                {column.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.url}
+                    target={link.url.startsWith("http") ? "_blank" : undefined}
+                    rel={link.url.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="group flex items-center gap-2"
+                  >
+                    <ArrowDownLeft
+                      size={14}
+                      className="shrink-0 text-hero-orange"
+                      aria-hidden="true"
+                    />
+                    <span
+                      style={{ fontFamily: "var(--font-heading)" }}
+                      className="text-xl md:text-2xl font-bold text-beige group-hover:text-hero-orange transition-colors duration-300"
+                    >
+                      {link.name}
+                    </span>
+                  </a>
+                ))}
+              </div>
             ))}
+
+            <div className="col-span-2 md:col-span-1 flex gap-10 md:block md:space-y-8">
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-beige/45 mb-2">Email</p>
+                <a
+                  href={`mailto:${personalInfo.email}`}
+                  className="text-beige hover:text-hero-orange transition-colors duration-300 break-all"
+                >
+                  {personalInfo.email}
+                </a>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-beige/45 mb-2">Phone</p>
+                <a
+                  href={`tel:${personalInfo.phone.replace(/\s+/g, "")}`}
+                  className="text-beige hover:text-hero-orange transition-colors duration-300"
+                >
+                  {personalInfo.phone}
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -84,12 +109,9 @@ export default function Footer() {
           </button>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-beige/10 flex flex-col md:flex-row items-center justify-between gap-3">
+        <div className="mt-10 pt-6 border-t border-beige/10 flex items-center justify-center">
           <p className="text-beige/35 text-xs">
             © {new Date().getFullYear()} {personalInfo.name}. All rights reserved.
-          </p>
-          <p className="text-beige/35 text-xs">
-            Built with Next.js, TypeScript, Tailwind &amp; Framer Motion
           </p>
         </div>
       </div>
