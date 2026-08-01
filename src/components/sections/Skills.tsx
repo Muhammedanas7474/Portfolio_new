@@ -42,8 +42,8 @@ function Row({
           ))}
         </div>
         {dark && (
-          <p className="absolute inset-0 flex items-center text-sm md:text-base text-hero-bg/80">
-            {blurb}
+          <p className="absolute inset-0 flex items-center justify-end text-right text-sm md:text-base font-semibold text-hero-bg/90">
+            <span className="max-w-[220px] md:max-w-sm">{blurb}</span>
           </p>
         )}
       </div>
@@ -82,7 +82,7 @@ export default function Skills() {
 
   return (
     <section id="skills" className="relative py-28 md:py-36 overflow-hidden" ref={sectionRef}>
-      <div className="container mx-auto px-6 md:px-10">
+      <div className="container mx-auto px-12 md:px-10">
         <span className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.4em] text-beige/60 mb-8">
           <span className="h-1.5 w-1.5 rounded-full bg-hero-orange" aria-hidden="true" />
           What I Work With
@@ -91,7 +91,7 @@ export default function Skills() {
         <div
           ref={listRef}
           onMouseLeave={() => opacity.set(0)}
-          className="relative border-t border-beige/10"
+          className="relative border-t border-beige/20"
         >
           {/* Base layer — always visible, beige text + tags */}
           {skillCategories.map((category, idx) => (
@@ -104,7 +104,7 @@ export default function Skills() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: idx * 0.08 }}
               onMouseEnter={() => handleEnter(idx)}
-              className="border-b border-beige/10"
+              className="border-b border-beige/20"
             >
               <Row title={category.title} blurb={category.blurb} skills={category.skills} dark={false} />
             </motion.div>
