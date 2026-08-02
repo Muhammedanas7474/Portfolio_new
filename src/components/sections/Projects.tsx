@@ -148,15 +148,17 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
             <GithubIcon size={16} />
             Code
           </a>
-          <a
-            href={project.links.live}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-medium text-beige/70 hover:text-hero-orange transition-colors"
-          >
-            <ExternalLink size={16} />
-            Live Demo
-          </a>
+          {project.links.live !== "#" && (
+            <a
+              href={project.links.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-medium text-beige/70 hover:text-hero-orange transition-colors"
+            >
+              <ExternalLink size={16} />
+              Live Demo
+            </a>
+          )}
         </div>
       </div>
     </motion.div>

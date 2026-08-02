@@ -42,12 +42,12 @@ export const heroNavItems = [
   { label: "CONTACT", href: "#contact" },
 ];
 
-// Left-side social rail on the redesigned Hero. Instagram/YouTube are
-// placeholders ("#") until real handles are provided.
+// Left-side social rail on the redesigned Hero. YouTube is a
+// placeholder ("#") until a real handle is provided.
 export const heroSocialLinks = [
   { name: "GitHub", url: "https://github.com/Muhammedanas7474", icon: "github" },
   { name: "LinkedIn", url: "https://www.linkedin.com/in/muhammed-anas-k-b44920357/", icon: "linkedin" },
-  { name: "Instagram", url: "#", icon: "instagram" },
+  { name: "Instagram", url: "https://www.instagram.com/", icon: "instagram" },
   { name: "YouTube", url: "#", icon: "youtube" },
   { name: "Email", url: `mailto:${personalInfo.email}`, icon: "email" },
 ];
@@ -186,7 +186,7 @@ export const projects = [
     ],
     links: {
       github: "https://github.com/Muhammedanas7474",
-      live: "#",
+      live: "https://forever-e-com.vercel.app/",
     },
   },
   {
