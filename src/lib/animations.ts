@@ -1,170 +1,43 @@
 import type { Variants } from "framer-motion";
 
-// ============================================================
-// Framer Motion Animation Variants
-// ============================================================
+/* The single easing curve used for every reveal on the site. */
+export const EASE = [0.165, 0.84, 0.44, 1] as const;
 
-export const fadeInUp: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 40,
-  },
+export const DUR = {
+  fast: 0.4,
+  slow: 0.6,
+  reveal: 0.7,
+};
+
+export const maskIn: Variants = {
+  hidden: { clipPath: "inset(0 100% 0 0)" },
   visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1],
-    },
+    clipPath: "inset(0 0% 0 0)",
+    transition: { duration: DUR.reveal, ease: EASE },
   },
 };
 
-export const fadeInDown: Variants = {
-  hidden: {
-    opacity: 0,
-    y: -40,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-export const fadeInLeft: Variants = {
-  hidden: {
-    opacity: 0,
-    x: -40,
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-export const fadeInRight: Variants = {
-  hidden: {
-    opacity: 0,
-    x: 40,
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-export const scaleIn: Variants = {
-  hidden: {
-    opacity: 0,
-    scale: 0.8,
-  },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-export const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1,
-    },
-  },
-};
-
-export const staggerItem: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-export const slideInFromLeft: Variants = {
-  hidden: { x: "-100%", opacity: 0 },
-  visible: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-export const slideInFromRight: Variants = {
-  hidden: { x: "100%", opacity: 0 },
-  visible: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-export const textReveal: Variants = {
-  hidden: {
-    opacity: 0,
-    y: "100%",
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-export const letterAnimation: Variants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1],
-      delay: i * 0.03,
-    },
+export const charIn: Variants = {
+  hidden: { y: "110%" },
+  visible: (i: number = 0) => ({
+    y: "0%",
+    transition: { duration: 0.9, ease: EASE, delay: 0.05 * i },
   }),
 };
 
-export const pageTransition = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  exit: { opacity: 0 },
-  transition: { duration: 0.3 },
+export const lineIn: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: EASE },
+  },
 };
 
-export const cardHover = {
-  rest: { scale: 1 },
-  hover: {
-    scale: 1.02,
-    transition: { duration: 0.3, ease: "easeOut" },
+export const fadeIn: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: DUR.slow, ease: EASE },
   },
 };

@@ -1,16 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk, Bebas_Neue } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import ClientProviders from "@/components/layout/ClientProviders";
 import JsonLd from "@/components/seo/JsonLd";
 import { personalInfo, siteConfig } from "@/lib/constants";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
-const bebasNeue = Bebas_Neue({
+/* One family carries every role on this page — display, body and labels —
+   so weight and tracking alone do the hierarchical work. */
+const poppins = Poppins({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-bebas",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
+  display: "swap",
 });
 
 const title = `${personalInfo.name} | Software Engineer, Python & Django Developer`;
@@ -74,7 +75,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0c0c0c",
+  themeColor: "#0d0d0d",
   colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
@@ -86,9 +87,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} ${bebasNeue.variable} font-sans bg-bg text-text-primary antialiased selection:bg-hero-orange/30 selection:text-beige md:cursor-none`}
+        className={`${poppins.variable} antialiased bg-bg text-text-primary md:cursor-none cursor-none-all`}
       >
         <JsonLd />
         <a href="#main-content" className="skip-nav">

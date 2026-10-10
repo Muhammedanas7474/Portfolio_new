@@ -243,3 +243,141 @@ export const techStack = [
   "Tailwind CSS",
   "Redux",
 ];
+
+/* ============================================================
+   Dual-layer copy
+   The site renders every section twice: a dark layer and an
+   inverted red layer revealed by the clip-path flip button.
+   Factual rows (roles, years, stack) are identical in both —
+   only the "voice" copy is mirrored.
+   ============================================================ */
+
+export type Layer = "dark" | "red";
+
+export interface HeroLine {
+  text: string;
+  accent?: boolean;
+}
+
+export const layerCopy = {
+  hero: {
+    eyebrow: "Muhammed Anas K",
+    lines: {
+      dark: [
+        { text: "Making" },
+        { text: "solid", accent: true },
+        { text: "code", accent: true },
+        { text: "since" },
+        { text: "2022" },
+      ] as HeroLine[],
+      red: [
+        { text: "Fixing" },
+        { text: "broken", accent: true },
+        { text: "code", accent: true },
+        { text: "since" },
+        { text: "2022" },
+      ] as HeroLine[],
+    },
+  },
+
+  about: {
+    label: "About me",
+    text: {
+      dark:
+        "I'm a full-stack software engineer with a strong focus on building secure, scalable backend systems and shipping production-ready digital products.",
+      red:
+        "Most of my day is convincing a Django server to do what the ticket said. The rest is reading stack traces I wrote myself, and slowly getting better at both.",
+    },
+  },
+
+  whatIDo: {
+    label: "What i do",
+    items: ["Backend", "Frontend", "APIs", "Data", "DevOps"],
+  },
+
+  experience: {
+    label: "Experience",
+    text: {
+      dark:
+        "I currently work on banking and FinTech products — secure customer onboarding, REST integrations across internal and third-party services, and Django services running in production.",
+      red:
+        "I ship a Video KYC banking platform. It is audited, it is in production, and I still hold my breath a little on every deploy.",
+    },
+  },
+
+  history: {
+    label: "History",
+  },
+
+  work: {
+    label: "Selected work",
+  },
+
+  stack: {
+    label: "Tech stack",
+    cta: "Let's talk",
+  },
+
+  skills: {
+    label: "What I work with",
+  },
+
+  motto: {
+    eyebrow: "My motto",
+    heading: {
+      dark: "Ship less, ship it right",
+      red: "Ship first, polish later",
+    },
+    attribution: {
+      dark: "Muhammed Anas K",
+      red: "Muhammed Anas K",
+    },
+  },
+
+  contact: {
+    label: "Connect",
+  },
+};
+
+/* Roles + education merged into one reverse-chronological History list */
+export const history = [
+  {
+    period: "Now",
+    role: "Software Developer",
+    detail: "Banking & FinTech",
+    company: "PixDynamics",
+  },
+  {
+    period: "2025",
+    role: "Python Full Stack Intern",
+    detail: "React + Django",
+    company: "Bridgeon Solutions",
+  },
+  {
+    period: "2025",
+    role: "BCA Graduate",
+    detail: "Computer Applications",
+    company: "Calicut University",
+  },
+  {
+    period: "2021",
+    role: "Diploma",
+    detail: "Computer Applications",
+    company: "Kerala, India",
+  },
+];
+
+/* Dual-label contact links: resting label + the witty hover swap */
+export const contactColumns = [
+  [
+    { label: "Github", active: "My commits", url: "https://github.com/Muhammedanas7474" },
+    { label: "Linkedin", active: "Serious me", url: "https://www.linkedin.com/in/muhammed-anas-k-b44920357/" },
+    { label: "Instagram", active: "Behind the scenes", url: "https://www.instagram.com/" },
+  ],
+  [
+    { label: "Youtube", active: "Random tutorials", url: "#" },
+    { label: "Facebook", active: "Mostly photos", url: "#" },
+    { label: "Resume", active: "The one page version", url: "/resume.pdf" },
+  ],
+];
+

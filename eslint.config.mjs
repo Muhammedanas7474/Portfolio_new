@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Gitignored local reference copy — not part of the app (see AGENTS.md).
+    "reference_repo/**",
   ]),
 ]);
 

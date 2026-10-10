@@ -1,124 +1,711 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Tailwind CSS v4 — Theme Configuration
+   Theme tokens
    ============================================================ */
 
 @theme {
-  /* Colors — dark editorial palette: near-black, warm beige, burnt orange */
-  --color-bg: #0c0c0c;
-  --color-bg-secondary: #101010;
-  --color-bg-tertiary: #141414;
-  --color-surface: #131313;
-  --color-surface-hover: #1a1a1a;
-  --color-border: #232320;
-  --color-border-hover: #33322c;
+  /* Palette — inverted two-layer system */
+  --color-ink: #0d0d0d;
+  --color-bone: #b7ab98;
+  --color-flame: #eb5939;
+  --color-ash: #4d4d4d;
+  --color-gold: #c59b64;
 
-  --color-text-primary: #e7e2d5;
-  --color-text-secondary: #a8a396;
-  --color-text-muted: #6f6c62;
+  /* Semantic aliases (dark layer is the default) */
+  --color-bg: #0d0d0d;
+  --color-text-primary: #b7ab98;
+  --color-accent: #eb5939;
+  --color-hero-bg: #0d0d0d;
+  --color-hero-orange: #eb5939;
+  --color-beige: #b7ab98;
+  --color-border: hsla(37, 18%, 66%, 0.15);
+  --color-text-secondary: hsla(37, 18%, 66%, 0.5);
+  --color-text-muted: #4d4d4d;
 
-  --color-accent: #f45a2a;
-  --color-accent-hover: #ff6d3f;
-  --color-accent-light: #ff8f66;
-  --color-accent-dark: #c2431a;
-  --color-accent-blue: #f45a2a;
-  --color-accent-cyan: #ff8f66;
+  /* Typography — one geometric sans across the whole system */
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-desc: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 
-  --color-success: #10b981;
-  --color-error: #ef4444;
-  --color-warning: #f59e0b;
+  /* Single easing curve for every reveal on the site */
+  --ease-ref: cubic-bezier(0.165, 0.84, 0.44, 1);
 
-  /* Gradient Colors — monochrome orange */
-  --color-gradient-start: #f45a2a;
-  --color-gradient-mid: #ff8f66;
-  --color-gradient-end: #f45a2a;
-
-  /* Glass */
-  --color-glass: rgba(19, 19, 19, 0.7);
-  --color-glass-border: rgba(215, 210, 199, 0.1);
-  --color-glass-hover: rgba(26, 26, 26, 0.85);
-
-  /* Typography */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-heading: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
-  --font-display: var(--font-bebas), var(--font-space-grotesk), sans-serif;
-
-  /* Hero — premium minimal palette (scoped to Hero/Navbar/Social redesign) */
-  --color-hero-bg: #0c0c0c;
-  --color-beige: #d7d2c7;
-  --color-hero-orange: #f45a2a;
-
-  /* Border Radius */
-  --radius-sm: 0.375rem;
-  --radius-md: 0.625rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.25rem;
-  --radius-2xl: 1.5rem;
-  --radius-full: 9999px;
-
-  /* Shadows */
-  --shadow-glow: 0 0 20px rgba(244, 90, 42, 0.15);
-  --shadow-glow-lg: 0 0 40px rgba(244, 90, 42, 0.2);
-  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.4);
-
-  /* Z-Index Scale */
-  --z-cursor: 9999;
-  --z-loading: 9998;
-  --z-nav: 100;
-  --z-dock: 90;
-  --z-modal: 80;
-
-  /* Animations */
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-glow: glow 2s ease-in-out infinite alternate;
-  --animate-shimmer: shimmer 2s linear infinite;
+  /* Motion */
   --animate-marquee: marquee 30s linear infinite;
   --animate-marquee-reverse: marquee-reverse 30s linear infinite;
-  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-spin-slow: spin 20s linear infinite;
-  --animate-bounce-slow: bounce 3s infinite;
+  --animate-ring: ring-spin 10s linear infinite;
 
-  /* Transition */
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* Z scale */
+  --z-cursor: 9999;
+  --z-loading: 9998;
+  --z-chrome: 100;
+  --z-flip: 90;
+  --z-layer-red: 5;
 }
 
 /* ============================================================
-   Keyframes
+   Root — viewport-driven type scale (all rem sizes are fluid)
    ============================================================ */
 
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
+html {
+  font-size: calc(10.98px + 1.0714vw);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (min-width: 768px) {
+html {
+  font-size: calc(10.98px + 1.0714vw);
+  scroll-behavior: smooth;
+  /* Anchor jumps must clear the fixed navbar */
+  scroll-padding-top: 6rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Foreground for chrome that floats *above* both layers (navbar, footer,
+   flip button). Each layer repaints itself with `.layer`; these two cannot,
+   so they follow the active layer through `data-layer` on <html>. */
+:root {
+  --chrome-fg: #b7ab98;
+  --chrome-fg-muted: hsla(37, 18%, 66%, 0.5);
+  --chrome-line: hsla(37, 18%, 66%, 0.15);
+  --chrome-accent: #eb5939;
+}
+
+:root[data-layer="red"] {
+  --chrome-fg: #0d0d0d;
+  --chrome-fg-muted: hsla(0, 0%, 5%, 0.5);
+  --chrome-line: #0d0d0d;
+  --chrome-accent: #0d0d0d;
+}
+}
+
+@media (min-width: 1200px) {
+  html {
+    font-size: calc(8.309px + 0.4451vw);
   }
 }
 
-@keyframes glow {
+body {
+  background-color: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  line-height: 1.1;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Scrollbar is hidden, matching the reference chrome-less canvas */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+::selection {
+  background-color: var(--color-flame);
+  color: var(--color-ink);
+}
+
+/* Custom cursor takes over the pointer on desktop only */
+@media (min-width: 768px) {
+  .cursor-none-all,
+  .cursor-none-all * {
+    cursor: none !important;
+  }
+  .cursor-none-all input,
+  .cursor-none-all textarea,
+  .cursor-none-all select {
+    cursor: auto !important;
+  }
+}
+
+/* ============================================================
+   Layer theming — colours flip wholesale between the two layers
+   ============================================================ */
+
+.layer {
+  --bg: #0d0d0d;
+  --fg: #b7ab98;
+  --muted: hsla(37, 18%, 66%, 0.5);
+  --faint: hsla(37, 18%, 66%, 0.3);
+  --line: hsla(37, 18%, 66%, 0.15);
+  --label: #4d4d4d;
+  --accent: #eb5939;
+  --mask-bg: #eb5939;
+  --mask-fg: #0d0d0d;
+  --thumb: hsla(37, 18%, 66%, 0.15);
+  --glow: rgba(235, 89, 57, 0.13);
+
+  color: var(--fg);
+  background-color: var(--bg);
+}
+
+.layer--red {
+  --bg: #eb5939;
+  --fg: #0d0d0d;
+  --muted: hsla(0, 0%, 5%, 0.5);
+  --faint: hsla(0, 0%, 5%, 0.35);
+  --line: #0d0d0d;
+  --label: hsla(0, 0%, 5%, 0.5);
+  --accent: #0d0d0d;
+  --mask-bg: #0d0d0d;
+  --mask-fg: #eb5939;
+  --thumb: hsla(0, 0%, 5%, 0.12);
+  --glow: rgba(13, 13, 13, 0.1);
+}
+
+.fg {
+  color: var(--fg);
+}
+.fg-muted {
+  color: var(--muted);
+}
+.fg-label {
+  color: var(--label);
+}
+.fg-accent {
+  color: var(--accent);
+}
+.rule-t {
+  border-top: 1px solid var(--line);
+}
+.rule-b {
+  border-bottom: 1px solid var(--line);
+}
+
+/* ============================================================
+   Type scale
+   ============================================================ */
+
+.h1 {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 4.25rem;
+  line-height: 84%;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .h1 {
+    font-size: 6.875rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .h1 {
+    font-size: 8.75rem;
+  }
+}
+
+.h2 {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.25rem;
+  line-height: 100%;
+  letter-spacing: -0.04em;
+}
+
+@media (min-width: 768px) {
+  .h2 {
+    font-size: 3.75rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .h2 {
+    font-size: 5rem;
+  }
+}
+
+.h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.375rem;
+  line-height: 110%;
+  letter-spacing: -0.04em;
+}
+
+@media (min-width: 768px) {
+  .h3 {
+    font-size: 1.875rem;
+    line-height: 100%;
+    letter-spacing: -0.03em;
+  }
+}
+
+@media (min-width: 1200px) {
+  .h3 {
+    font-size: 2.5rem;
+  }
+}
+
+.h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 120%;
+  letter-spacing: 0.03em;
+}
+
+@media (min-width: 768px) {
+  .h4 {
+    letter-spacing: 0;
+    line-height: 130%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .h4 {
+    font-size: 1rem;
+  }
+}
+
+/* Micro uppercase label — the 0.5em tracked eyebrow used everywhere */
+.h6,
+.label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 130%;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 1200px) {
+  .h6,
+  .label {
+    font-size: 1rem;
+  }
+}
+
+.body-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 180%;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  margin-bottom: 1.875rem;
+}
+
+.desc {
+  font-family: var(--font-desc);
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 130%;
+}
+
+@media (min-width: 1200px) {
+  .desc {
+    font-size: 1rem;
+  }
+}
+
+.sub-content {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 180%;
+  color: var(--muted);
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.none-break {
+  white-space: nowrap;
+}
+
+strong {
+  color: var(--accent);
+}
+
+b {
+  color: var(--fg);
+  font-weight: 700;
+}
+
+/* ============================================================
+   Spacing tokens
+   ============================================================ */
+
+:root {
+  --ease: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --dur-fast: 0.4s;
+  --dur-slow: 0.6s;
+  --screen-x: 1.25rem;
+  --spacing-sx: 1.5rem;
+  --spacing-sm: 3rem;
+  --spacing-md: 5rem;
+  --spacing-lg: 5rem;
+  --spacing-xl: 10rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --screen-x: 2.6666666667vw;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --screen-x: 4.0509259259vw;
+    --spacing-sx: 2.5rem;
+    --spacing-sm: 5rem;
+    --spacing-md: 7.5rem;
+    --spacing-lg: 10rem;
+    --spacing-xl: 18.75rem;
+  }
+}
+
+.container_content {
+  padding-left: var(--screen-x);
+  padding-right: var(--screen-x);
+}
+
+.section-pad {
+  padding-top: 9.375rem;
+  padding-bottom: 9.375rem;
+}
+
+@media (min-width: 768px) {
+  .section-pad {
+    padding-top: 18vh;
+    padding-bottom: 18vh;
+  }
+}
+
+/* ============================================================
+   Heading mask — hairline row with a red bar that wipes open
+   ============================================================ */
+
+.heading-mask {
+  position: relative;
+  display: block;
+  border-top: 1px solid var(--line);
+}
+
+.heading-mask:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.hm__deep {
+  position: relative;
+  z-index: 1;
+  display: block;
+  padding: 1.25rem 0;
+  color: var(--fg);
+}
+
+@media (min-width: 768px) {
+  .hm__deep {
+    padding: 1.875rem 0;
+  }
+}
+
+.hm__mask {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: block;
+  padding: 1.25rem 0;
+  overflow: hidden;
+  background-color: var(--mask-bg);
+  color: var(--mask-fg);
+  clip-path: inset(50% 0 50% 0);
+  transition: clip-path var(--dur-fast) var(--ease);
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .hm__mask {
+    padding: 1.875rem 0;
+  }
+}
+
+.heading-mask:hover .hm__mask,
+.heading-mask:focus-visible .hm__mask,
+.heading-mask.is-open .hm__mask {
+  clip-path: inset(0 0 0 0);
+  transition-duration: var(--dur-slow);
+}
+
+/* ============================================================
+   Dual-label link — deep copy swaps to the active copy on hover
+   ============================================================ */
+
+.link-swap {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.link-swap__inner {
+  position: relative;
+  display: block;
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.link-swap__label {
+  display: block;
+}
+
+.link-swap__label--active {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  color: var(--accent);
+}
+
+.link-swap:hover .link-swap__inner,
+.link-swap:focus-visible .link-swap__inner {
+  transform: translateY(-100%);
+}
+
+/* ============================================================
+   Cursor circle-reveal — orange disc follows the pointer over a
+   headline and paints a color-inverted duplicate of the text.
+   ============================================================ */
+
+.text-reveal {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.text-reveal__circle {
+  position: absolute;
+  z-index: 10;
+  border-radius: 9999px;
+  background: var(--accent);
+  pointer-events: none;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.text-reveal__copy {
+  position: absolute;
+  color: var(--bg);
+}
+
+.text-reveal__copy *,
+.text-reveal__copy {
+  color: var(--bg) !important;
+}
+
+/* Inside the circle the scroll wipe must not re-run — show the full string. */
+.text-reveal__copy .scroll-paragraph__ghost {
+  opacity: 0;
+}
+.text-reveal__copy .scroll-paragraph__copy {
+  clip-path: none !important;
+}
+
+/* ============================================================
+   Character reveal — glyphs slide up behind a per-line clip box
+   ============================================================ */
+
+.char-line {
+  display: block;
+  overflow: hidden;
+}
+
+.char {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* ============================================================
+   Scroll paragraph — 20% ghost underneath, full copy wiped in
+   ============================================================ */
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(58% 54% at 50% 42%, var(--glow), transparent 72%);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  text-align: center;
+  padding-top: 8vh;
+  padding-bottom: 8vh;
+}
+
+.hero__eyebrow {
+  margin-bottom: 0.9375rem;
+}
+
+@media (min-width: 768px) {
+  .hero__eyebrow {
+    margin-bottom: 1.875rem;
+  }
+}
+
+/* ============================================================
+   Circular avatar thumbs (skills slider)
+   ============================================================ */
+
+.thumb {
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background-color: var(--thumb);
+  color: var(--muted);
+  transition: color var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease);
+}
+
+@media (min-width: 768px) {
+  .thumb {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+.thumb.is-active {
+  background-color: var(--mask-bg);
+  color: var(--mask-fg);
+}
+
+/* ============================================================
+   Full-bleed static panel (grain stands in for the reel)
+   ============================================================ */
+
+.panel {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(70% 70% at 50% 50%, var(--glow), transparent 75%),
+    var(--bg);
+}
+
+.panel__inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================================================
+   Scroll paragraph — 20% ghost underneath, full copy wiped in
+   ============================================================ */
+.scroll-paragraph {
+  position: relative;
+}
+
+.scroll-paragraph__ghost {
+  position: absolute;
+  inset: 0;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.scroll-paragraph__copy {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   Rotating text ring (flip button + section CTA)
+   ============================================================ */
+
+.ring-spin {
+  animation: ring-spin 10s linear infinite;
+}
+
+@keyframes ring-spin {
   from {
-    box-shadow: 0 0 10px rgba(244, 90, 42, 0.2),
-      0 0 20px rgba(244, 90, 42, 0.1);
+    transform: rotate(0deg);
   }
   to {
-    box-shadow: 0 0 20px rgba(244, 90, 42, 0.4),
-      0 0 40px rgba(244, 90, 42, 0.2);
+    transform: rotate(360deg);
   }
 }
 
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
+/* ============================================================
+   Grain — used only for the static full-bleed media panels
+   ============================================================ */
+
+.grain {
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 8s steps(10) infinite;
+}
+
+@keyframes grain {
+  0%,
   100% {
-    background-position: 200% 0;
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-2%, -3%);
+  }
+  20% {
+    transform: translate(-4%, 2%);
+  }
+  30% {
+    transform: translate(2%, -4%);
+  }
+  40% {
+    transform: translate(-2%, 5%);
+  }
+  50% {
+    transform: translate(-4%, 2%);
+  }
+  60% {
+    transform: translate(3%, 0);
+  }
+  70% {
+    transform: translate(0, 3%);
+  }
+  80% {
+    transform: translate(-3%, 0);
+  }
+  90% {
+    transform: translate(2%, 2%);
   }
 }
+
+/* ============================================================
+   Marquee
+   ============================================================ */
 
 @keyframes marquee {
   from {
@@ -138,214 +725,22 @@
   }
 }
 
-@keyframes gradient-shift {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
 }
 
-@keyframes border-rotate {
-  0% {
-    --angle: 0deg;
-  }
-  100% {
-    --angle: 360deg;
-  }
+.marquee-track--reverse {
+  animation-name: marquee-reverse;
+}
+
+.marquee-host:hover .marquee-track {
+  animation-play-state: paused;
 }
 
 /* ============================================================
-   Base Styles
-   ============================================================ */
-
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  background-color: var(--color-bg);
-  color: var(--color-text-primary);
-  font-family: var(--font-sans);
-  overflow-x: hidden;
-  min-height: 100vh;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-heading);
-}
-
-/* ============================================================
-   Scrollbar
-   ============================================================ */
-
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-bg);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-accent);
-  border-radius: var(--radius-full);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent-hover);
-}
-
-/* ============================================================
-   Selection
-   ============================================================ */
-
-::selection {
-  background-color: rgba(244, 90, 42, 0.3);
-  color: var(--color-text-primary);
-}
-
-/* ============================================================
-   Glass Utilities
-   ============================================================ */
-
-.glass {
-  background: var(--color-glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--color-glass-border);
-}
-
-.glass-card {
-  background: var(--color-glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--color-glass-border);
-  border-radius: var(--radius-xl);
-  transition: all var(--transition-base);
-}
-
-.glass-card:hover {
-  background: var(--color-glass-hover);
-  border-color: rgba(244, 90, 42, 0.25);
-  box-shadow: var(--shadow-glow);
-}
-
-/* ============================================================
-   Gradient Utilities
-   ============================================================ */
-
-.gradient-text {
-  background: linear-gradient(
-    135deg,
-    var(--color-gradient-start),
-    var(--color-gradient-mid),
-    var(--color-gradient-end)
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-border {
-  position: relative;
-  border-radius: var(--radius-xl);
-}
-
-.gradient-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(
-    135deg,
-    var(--color-gradient-start),
-    transparent,
-    var(--color-gradient-end)
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-/* ============================================================
-   Animated Background Gradient
-   ============================================================ */
-
-.animated-gradient-bg {
-  background: linear-gradient(
-    -45deg,
-    var(--color-bg),
-    var(--color-bg-secondary),
-    rgba(244, 90, 42, 0.05),
-    var(--color-bg)
-  );
-  background-size: 400% 400%;
-  animation: gradient-shift 15s ease infinite;
-}
-
-/* ============================================================
-   Spotlight Effect
-   ============================================================ */
-
-.spotlight {
-  position: relative;
-  overflow: hidden;
-}
-
-.spotlight::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(244, 90, 42, 0.06),
-    transparent 40%
-  );
-  pointer-events: none;
-}
-
-/* ============================================================
-   Section Spacing
-   ============================================================ */
-
-.section-padding {
-  padding: 6rem 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .section-padding {
-    padding: 8rem 2rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .section-padding {
-    padding: 10rem 2rem;
-  }
-}
-
-/* ============================================================
-   Container
-   ============================================================ */
-
-.container-custom {
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-/* ============================================================
-   Skip Navigation (a11y)
+   Skip navigation (a11y)
    ============================================================ */
 
 .skip-nav {
@@ -355,10 +750,9 @@ h4 {
   transform: translateX(-50%);
   z-index: 10000;
   padding: 1rem 2rem;
-  background: var(--color-accent);
-  color: var(--color-hero-bg);
-  border-radius: 0 0 var(--radius-md) var(--radius-md);
-  font-weight: 600;
+  background: var(--color-flame);
+  color: var(--color-ink);
+  font-weight: 700;
   transition: top 0.2s;
 }
 
@@ -367,35 +761,7 @@ h4 {
 }
 
 /* ============================================================
-   Hero Grain Overlay
-   ============================================================ */
-
-.hero-grain {
-  position: absolute;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation: grain 8s steps(10) infinite;
-}
-
-@keyframes grain {
-  0%, 100% { transform: translate(0, 0); }
-  10% { transform: translate(-2%, -3%); }
-  20% { transform: translate(-4%, 2%); }
-  30% { transform: translate(2%, -4%); }
-  40% { transform: translate(-2%, 5%); }
-  50% { transform: translate(-4%, 2%); }
-  60% { transform: translate(3%, 0); }
-  70% { transform: translate(0, 3%); }
-  80% { transform: translate(-3%, 0); }
-  90% { transform: translate(2%, 2%); }
-}
-
-/* ============================================================
-   Reduced Motion
+   Reduced motion
    ============================================================ */
 
 @media (prefers-reduced-motion: reduce) {

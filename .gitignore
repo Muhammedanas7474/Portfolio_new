@@ -46,3 +46,8 @@ extract.py
 restore.py
 revert.py
 restored_files.json
+
+# agent skills (installed locally, not part of the app)
+/.agents/
+/.claude/
+skills-lock.json
