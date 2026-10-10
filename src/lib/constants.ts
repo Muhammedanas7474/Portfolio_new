@@ -292,7 +292,33 @@ export const layerCopy = {
 
   whatIDo: {
     label: "What i do",
-    items: ["Backend", "Frontend", "APIs", "Data", "DevOps"],
+    items: [
+      {
+        title: "Backend",
+        description:
+          "Django services, business logic and production APIs that stay up under real traffic.",
+      },
+      {
+        title: "Frontend",
+        description:
+          "React and Next.js interfaces — clean, fast and built to ship with the backend.",
+      },
+      {
+        title: "APIs",
+        description:
+          "REST integrations across internal systems and third-party banking providers.",
+      },
+      {
+        title: "Data",
+        description:
+          "PostgreSQL schemas, migrations and queries tuned for correctness first.",
+      },
+      {
+        title: "DevOps",
+        description:
+          "Docker, CI deploys and the boring reliability work that keeps releases calm.",
+      },
+    ],
   },
 
   experience: {

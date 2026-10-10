@@ -447,6 +447,131 @@ b {
 }
 
 /* ============================================================
+   What I Do — full-bleed ruled rows; hover floods accent + desc
+   Text sits on the same mid-page column as About (col 3 of 12).
+   ============================================================ */
+
+.whatido__label,
+.whatido__inner {
+  padding-left: var(--screen-x);
+  padding-right: var(--screen-x);
+}
+
+/* Same mid-page offset as About's md:col-start-3 */
+@media (min-width: 768px) {
+  .whatido__label,
+  .whatido__inner {
+    padding-left: calc(var(--screen-x) + (100% - 2 * var(--screen-x)) * 2 / 12);
+  }
+}
+
+.whatido__label {
+  margin-bottom: 2rem;
+}
+
+.whatido {
+  border-top: 1px solid hsla(0, 0%, 100%, 0.14);
+}
+
+.whatido__row {
+  position: relative;
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.14);
+  overflow: hidden;
+}
+
+.whatido__bar {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-slow) var(--ease);
+  pointer-events: none;
+}
+
+.whatido__row:hover .whatido__bar,
+.whatido__row:focus-within .whatido__bar {
+  transform: scaleX(1);
+}
+
+.whatido__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
+}
+
+@media (min-width: 900px) {
+  .whatido__inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-top: 0.45rem;
+    padding-bottom: 0.45rem;
+  }
+}
+
+.whatido__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 3.25rem;
+  line-height: 88%;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  color: var(--fg);
+  transition: color var(--dur-fast) var(--ease);
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .whatido__title {
+    font-size: 5.75rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .whatido__title {
+    font-size: 7.5rem;
+  }
+}
+
+.whatido__desc {
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  font-weight: 400;
+  max-width: 22rem;
+  color: var(--bg);
+  opacity: 0;
+  transform: translateY(0.35rem);
+  transition:
+    opacity var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+
+@media (min-width: 900px) {
+  .whatido__desc {
+    text-align: right;
+    margin-left: auto;
+  }
+}
+
+.whatido__row:hover .whatido__title,
+.whatido__row:focus-within .whatido__title {
+  color: var(--bg);
+}
+
+.whatido__row:hover .whatido__desc,
+.whatido__row:focus-within .whatido__desc {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
    Dual-label link — deep copy swaps to the active copy on hover
    ============================================================ */
 
