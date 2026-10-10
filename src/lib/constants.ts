@@ -324,10 +324,18 @@ export const layerCopy = {
   experience: {
     label: "Experience",
     text: {
-      dark:
-        "I currently work on banking and FinTech products — secure customer onboarding, REST integrations across internal and third-party services, and Django services running in production.",
-      red:
-        "I ship a Video KYC banking platform. It is audited, it is in production, and I still hold my breath a little on every deploy.",
+      dark: [
+        { text: "2+ years", accent: true },
+        {
+          text: " of experience building secure banking platforms, scalable backend systems and production-ready digital products.",
+        },
+      ],
+      red: [
+        { text: "Video KYC", accent: true },
+        {
+          text: " in production, audited, and still shipping — the kind of backend work that keeps you honest.",
+        },
+      ],
     },
   },
 

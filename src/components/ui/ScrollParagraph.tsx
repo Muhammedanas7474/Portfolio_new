@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 interface Props {
-  text: string;
+  text: ReactNode;
   className?: string;
 }
 
