@@ -645,6 +645,232 @@ b {
 }
 
 /* ============================================================
+   Connect — mid-page label, two triangle-bulleted link columns,
+   Email/Phone block on the right
+   ============================================================ */
+
+.connect__label,
+.connect__grid {
+  padding-left: var(--screen-x);
+  padding-right: var(--screen-x);
+}
+
+@media (min-width: 768px) {
+  .connect__label,
+  .connect__grid {
+    padding-left: calc(var(--screen-x) + (100% - 2 * var(--screen-x)) * 2 / 12);
+  }
+}
+
+.connect__label {
+  margin-bottom: 2.5rem;
+}
+
+.connect__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .connect__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem 3rem;
+    align-items: start;
+  }
+}
+
+.connect__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.connect__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 115%;
+  letter-spacing: -0.03em;
+  color: var(--fg);
+  transition: color var(--dur-fast) var(--ease);
+}
+
+@media (min-width: 768px) {
+  .connect__link {
+    font-size: 1.875rem;
+  }
+}
+
+.connect__swap {
+  position: relative;
+  display: inline-grid;
+  justify-items: start;
+}
+
+.connect__swap > * {
+  grid-area: 1 / 1;
+}
+
+.connect__bar {
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-slow) var(--ease);
+  pointer-events: none;
+  z-index: 0;
+  width: 100%;
+  min-height: 100%;
+  align-self: stretch;
+  justify-self: stretch;
+}
+
+.connect__label-rest,
+.connect__label-active {
+  position: relative;
+  z-index: 1;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+
+.connect__label-active {
+  color: var(--bg);
+  opacity: 0;
+}
+
+.connect__link:hover .connect__bar,
+.connect__link:focus-visible .connect__bar {
+  transform: scaleX(1);
+}
+
+.connect__link:hover,
+.connect__link:focus-visible {
+  color: var(--bg);
+}
+
+.connect__link:hover .connect__label-rest,
+.connect__link:focus-visible .connect__label-rest {
+  opacity: 0;
+}
+
+.connect__link:hover .connect__label-active,
+.connect__link:focus-visible .connect__label-active {
+  opacity: 1;
+}
+
+.connect__link:hover .connect__marker,
+.connect__link:focus-visible .connect__marker {
+  transform: translateX(0.15rem);
+}
+
+.connect__marker {
+  flex-shrink: 0;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 7px solid var(--accent);
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.connect__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .connect__contact {
+    padding-top: 0.15rem;
+    padding-left: 2rem;
+  }
+}
+
+.connect__field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: flex-start;
+}
+
+.connect__field .connect__bar {
+  position: absolute;
+  inset: -0.25em -0.5em;
+  width: auto;
+  min-height: 0;
+  align-self: auto;
+  justify-self: auto;
+  z-index: 0;
+}
+
+.connect__field-top {
+  position: relative;
+  z-index: 1;
+  display: inline-grid;
+  justify-items: start;
+}
+
+.connect__field-top > * {
+  grid-area: 1 / 1;
+}
+
+.connect__field .connect__label-rest,
+.connect__field .connect__label-active {
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+
+.connect__field .connect__label-rest {
+  color: var(--fg);
+  transition: opacity var(--dur-fast) var(--ease);
+}
+
+.connect__field .connect__label-active {
+  color: var(--bg);
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+
+.connect__field-value {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.3;
+  white-space: nowrap;
+  color: color-mix(in srgb, var(--fg) 55%, transparent);
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.connect__field:hover .connect__bar,
+.connect__field:focus-visible .connect__bar {
+  transform: scaleX(1);
+}
+
+.connect__field:hover .connect__label-rest,
+.connect__field:focus-visible .connect__label-rest {
+  opacity: 0;
+}
+
+.connect__field:hover .connect__label-active,
+.connect__field:focus-visible .connect__label-active {
+  opacity: 1;
+}
+
+.connect__field:hover .connect__field-value,
+.connect__field:focus-visible .connect__field-value {
+  color: var(--bg);
+}
+
+/* ============================================================
    Dual-label link — deep copy swaps to the active copy on hover
    ============================================================ */
 

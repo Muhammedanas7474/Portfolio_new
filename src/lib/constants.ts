@@ -401,15 +401,15 @@ export const history = [
   },
 ];
 
-/* Dual-label contact links: resting label + the witty hover swap */
+/* Two-column Connect list — dual-label links (resting + hover swap) */
 export const contactColumns = [
   [
-    { label: "Github", active: "My commits", url: "https://github.com/Muhammedanas7474" },
-    { label: "Linkedin", active: "Serious me", url: "https://www.linkedin.com/in/muhammed-anas-k-b44920357/" },
+    { label: "GitHub", active: "My commits", url: "https://github.com/Muhammedanas7474" },
+    { label: "LinkedIn", active: "Serious me", url: "https://www.linkedin.com/in/muhammed-anas-k-b44920357/" },
     { label: "Instagram", active: "Behind the scenes", url: "https://www.instagram.com/" },
   ],
   [
-    { label: "Youtube", active: "Random tutorials", url: "#" },
+    { label: "YouTube", active: "Random tutorials", url: "#" },
     { label: "Facebook", active: "Mostly photos", url: "#" },
     { label: "Resume", active: "The one page version", url: "/resume.pdf" },
   ],

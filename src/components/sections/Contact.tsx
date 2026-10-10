@@ -1,110 +1,72 @@
 "use client";
 
-import TextReveal from "@/components/ui/TextReveal";
-import { contactColumns, layerCopy, personalInfo, socialLinks } from "@/lib/constants";
+import { contactColumns, layerCopy, personalInfo } from "@/lib/constants";
 
-function SwapLink({ label, active, url }: { label: string; active: string; url: string }) {
-  const isExternal = url.startsWith("http");
-
-  return (
-    <a
-      href={url}
-      className="link-swap h3"
-      data-cursor="extend"
-      {...(isExternal ? { target: "_blank", rel: "noreferrer" } : {})}
-    >
-      <span className="link-swap__inner">
-        <span className="link-swap__label">{label}</span>
-        <span className="link-swap__label link-swap__label--active">{active}</span>
-      </span>
-    </a>
-  );
-}
-
+/**
+ * Connect — two columns of large triangle-bulleted social links plus a
+ * quiet Email/Phone block on the right. Hover fills an accent bar behind
+ * the link, inverts the text, and swaps the label.
+ */
 export default function Contact() {
   return (
-    <section className="container_content" style={{ paddingTop: "12.5rem", paddingBottom: "6rem" }}>
-      <div className="grid grid-cols-12">
-        <div className="col-span-12 md:col-span-8 md:col-start-3">
-          <p className="body-text">{layerCopy.contact.label}</p>
+    <section
+      className="connect-section"
+      style={{ paddingTop: "12.5rem", paddingBottom: "6rem" }}
+    >
+      <p className="body-text connect__label">{layerCopy.contact.label}</p>
 
-          <TextReveal>
-            <span className="h1" style={{ margin: 0, display: "block" }}>
-              {layerCopy.stack.cta}
-            </span>
-          </TextReveal>
+      <div className="connect__grid">
+        {contactColumns.map((column, index) => (
+          <ul key={index} className="connect__list">
+            {column.map((link) => {
+              const isExternal = link.url.startsWith("http");
 
-          <div className="grid grid-cols-12 gap-x-6 gap-y-10" style={{ marginTop: "4rem" }}>
-            {contactColumns.map((column, index) => (
-              <ul key={index} className="col-span-12 md:col-span-4">
-                {column.map((link) => (
-                  <li key={link.label} style={{ borderTop: "1px solid var(--border)", padding: "1.125rem 0" }}>
-                    <SwapLink {...link} />
-                  </li>
-                ))}
-              </ul>
-            ))}
-
-            <div className="col-span-12 md:col-span-4">
-              <ul>
-                <li style={{ borderTop: "1px solid var(--border)", padding: "1.125rem 0" }}>
+              return (
+                <li key={link.label}>
                   <a
-                    className="link-swap h3"
-                    href={`mailto:${personalInfo.email}`}
+                    href={link.url}
+                    className="connect__link"
                     data-cursor="extend"
+                    {...(isExternal ? { target: "_blank", rel: "noreferrer" } : {})}
                   >
-                    <span className="link-swap__inner">
-                      <span className="link-swap__label">Email</span>
-                      <span className="link-swap__label link-swap__label--active">
-                        Say hello
-                      </span>
+                    <span className="connect__marker" aria-hidden="true" />
+                    <span className="connect__swap">
+                      <span className="connect__bar" aria-hidden="true" />
+                      <span className="connect__label-rest">{link.label}</span>
+                      <span className="connect__label-active">{link.active}</span>
                     </span>
                   </a>
                 </li>
-                <li style={{ borderTop: "1px solid var(--border)", padding: "1.125rem 0" }}>
-                  <a
-                    className="link-swap h3"
-                    href={`tel:${personalInfo.phone.replace(/\s/g, "")}`}
-                    data-cursor="extend"
-                  >
-                    <span className="link-swap__inner">
-                      <span className="link-swap__label">Phone</span>
-                      <span className="link-swap__label link-swap__label--active">
-                        Call me
-                      </span>
-                    </span>
-                  </a>
-                </li>
-                <li style={{ borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)", padding: "1.125rem 0" }}>
-                  <p className="h3" style={{ color: "var(--muted)" }}>
-                    {personalInfo.location}
-                  </p>
-                </li>
-              </ul>
-            </div>
-          </div>
+              );
+            })}
+          </ul>
+        ))}
 
-          <div
-            className="flex flex-wrap items-center gap-x-6 gap-y-3"
-            style={{ marginTop: "5rem", paddingRight: "7rem" }}
+        <div className="connect__contact">
+          <a
+            href={`mailto:${personalInfo.email}`}
+            className="connect__field"
+            data-cursor="extend"
           >
-            {socialLinks.map((social) => (
-              <a
-                key={social.name}
-                href={social.url}
-                target="_blank"
-                rel="noreferrer"
-                className="desc"
-                style={{ color: "var(--muted)" }}
-                data-cursor="extend"
-              >
-                {social.name}
-              </a>
-            ))}
-            <span className="desc" style={{ color: "var(--muted)", marginLeft: "auto" }}>
-              © {new Date().getFullYear()} {personalInfo.name}
+            <span className="connect__bar" aria-hidden="true" />
+            <span className="connect__field-top">
+              <span className="connect__label-rest">Email</span>
+              <span className="connect__label-active">100% chance I read it</span>
             </span>
-          </div>
+            <span className="connect__field-value">{personalInfo.email}</span>
+          </a>
+          <a
+            href={`tel:${personalInfo.phone.replace(/\s/g, "")}`}
+            className="connect__field"
+            data-cursor="extend"
+          >
+            <span className="connect__bar" aria-hidden="true" />
+            <span className="connect__field-top">
+              <span className="connect__label-rest">Phone</span>
+              <span className="connect__label-active">90% chance I don&apos;t pickup</span>
+            </span>
+            <span className="connect__field-value">{personalInfo.phone}</span>
+          </a>
         </div>
       </div>
     </section>
