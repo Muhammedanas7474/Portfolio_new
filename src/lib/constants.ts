@@ -120,7 +120,7 @@ export const skillCategories = [
 export const experiences = [
   {
     company: "PixDynamics",
-    position: "Software Developer",
+    position: "Software Engineer",
     duration: "Jan 2024 - Present",
     responsibilities: [
       "Building and maintaining a Video KYC banking platform used for secure digital customer onboarding.",
@@ -377,7 +377,7 @@ export const layerCopy = {
 export const history = [
   {
     period: "Now",
-    role: "Software Developer",
+    role: "Software Engineer",
     detail: "Banking & FinTech",
     company: "PixDynamics",
   },

@@ -4,39 +4,33 @@ import HeadingMask from "@/components/ui/HeadingMask";
 import { history, layerCopy } from "@/lib/constants";
 
 /**
- * Roles and education merged into one reverse-chronological list,
- * using the same ruled-row reveal as every other list on the page.
+ * Roles and education as full-bleed ruled rows (same width treatment as
+ * What I Do). Text sits on the shared mid-page column.
  */
 export default function History() {
   return (
-    <section className="container_content" style={{ paddingBottom: "12.5rem" }}>
-      <p className="body-text">{layerCopy.history.label}</p>
+    <section className="history-section" style={{ paddingBottom: "12.5rem" }}>
+      <p className="body-text history__label">{layerCopy.history.label}</p>
 
-      <div>
+      <div className="history">
         {history.map((row) => (
           <HeadingMask key={`${row.period}-${row.company}`}>
-            <div className="grid grid-cols-12 items-baseline gap-x-4">
-              <span
-                className="h3 col-span-12 mb-1 md:col-span-2 md:mb-0"
-                style={{ color: "var(--muted)" }}
-              >
-                {row.period}
-              </span>
-              <span className="h3 col-span-12 mb-1 md:col-span-5 md:mb-0">
-                {row.role}
-              </span>
-              <span
-                className="h3 col-span-12 mb-1 md:col-span-3 md:mb-0"
-                style={{ color: "var(--muted)" }}
-              >
-                {row.detail}
-              </span>
-              <span
-                className="desc col-span-12 md:col-span-2 md:text-right"
-                style={{ color: "var(--muted)" }}
-              >
-                {row.company}
-              </span>
+            <div className="history__row">
+              <div className="history__grid">
+                <span
+                  className="h3"
+                  style={{ color: "var(--muted)" }}
+                >
+                  {row.period}
+                </span>
+                <span className="h3">{row.role}</span>
+                <span className="h3" style={{ color: "var(--muted)" }}>
+                  {row.detail}
+                </span>
+                <span className="desc" style={{ color: "var(--muted)" }}>
+                  {row.company}
+                </span>
+              </div>
             </div>
           </HeadingMask>
         ))}

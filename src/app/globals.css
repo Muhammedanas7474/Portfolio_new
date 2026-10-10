@@ -572,6 +572,79 @@ b {
 }
 
 /* ============================================================
+   History — full-bleed ruled rows; content on mid-page column
+   ============================================================ */
+
+.history__label,
+.history__row {
+  padding-left: var(--screen-x);
+  padding-right: var(--screen-x);
+}
+
+@media (min-width: 768px) {
+  .history__label,
+  .history__row {
+    padding-left: max(var(--screen-x), 18vw);
+  }
+}
+
+.history__label {
+  margin-bottom: 2rem;
+}
+
+/* Override HeadingMask's vertical-only padding so our row pad wins */
+.history .hm__deep,
+.history .hm__mask {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.history__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.35rem 1rem;
+  align-items: baseline;
+}
+
+@media (min-width: 768px) {
+  .history__grid {
+    grid-template-columns: 0.7fr 1.8fr 1.2fr 0.8fr;
+    gap: 1rem;
+  }
+
+  .history__grid > :last-child {
+    text-align: right;
+  }
+}
+
+.work__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+@media (min-width: 768px) {
+  .work__grid {
+    grid-template-columns: 1.4fr 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.work__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+@media (min-width: 768px) {
+  .work__meta {
+    align-items: flex-end;
+    text-align: right;
+  }
+}
+
+/* ============================================================
    Dual-label link — deep copy swaps to the active copy on hover
    ============================================================ */
 
