@@ -4,7 +4,6 @@ import Experience from "@/components/sections/Experience";
 import Hero from "@/components/sections/Hero";
 import History from "@/components/sections/History";
 import Motto from "@/components/sections/Motto";
-import SkillSlider from "@/components/sections/SkillSlider";
 import TechPanel from "@/components/sections/TechPanel";
 import WhatIDo from "@/components/sections/WhatIDo";
 import WorkList from "@/components/sections/WorkList";
@@ -36,7 +35,6 @@ export default function Layer({ variant }: { variant: Layer }) {
         <History />
         <WorkList />
         <TechPanel />
-        <SkillSlider />
         <Motto variant={variant} />
       </div>
 
