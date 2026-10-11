@@ -1,53 +1,98 @@
 "use client";
 
-import { layerCopy, skillCategories } from "@/lib/constants";
+import { techStack } from "@/lib/constants";
+import { FaAws, FaCogs, FaDatabase, FaPlug, FaPuzzlePiece, FaSyncAlt } from "react-icons/fa";
+import {
+  SiCss,
+  SiDjango,
+  SiDocker,
+  SiFastapi,
+  SiGit,
+  SiGithub,
+  SiHtml5,
+  SiJavascript,
+  SiJsonwebtokens,
+  SiMysql,
+  SiPostgresql,
+  SiPostman,
+  SiPython,
+  SiReact,
+  SiRedux,
+  SiTailwindcss,
+  SiVercel,
+} from "react-icons/si";
+import type { IconType } from "react-icons";
+
+const ICONS: Record<string, IconType> = {
+  python: SiPython,
+  django: SiDjango,
+  fastapi: SiFastapi,
+  postman: SiPostman,
+  jwt: SiJsonwebtokens,
+  orm: FaDatabase,
+  react: SiReact,
+  javascript: SiJavascript,
+  html: SiHtml5,
+  css: SiCss,
+  tailwind: SiTailwindcss,
+  redux: SiRedux,
+  postgresql: SiPostgresql,
+  mysql: SiMysql,
+  sql: FaDatabase,
+  docker: SiDocker,
+  git: SiGit,
+  github: SiGithub,
+  aws: FaAws,
+  vercel: SiVercel,
+  agile: FaSyncAlt,
+  sdlc: FaCogs,
+  problem: FaPuzzlePiece,
+  integration: FaPlug,
+};
 
 /**
- * The reference's kinetic strip, flattened into a static ruled grid so the
- * page keeps its all-static constraint.
+ * Technical Stack — two-column flow of category blocks. Each block has a
+ * dot label, a grid of equal-width icon cards, and a row of tag pills.
  */
 export default function TechPanel() {
   return (
-    <section className="container_content" style={{ paddingBottom: "12.5rem" }}>
-      <div className="grid grid-cols-12">
-        <div className="col-span-12 md:col-span-8 md:col-start-3">
-          <p className="body-text">{layerCopy.stack.label}</p>
+    <section className="stack-section">
+      <h2 className="stack__heading">
+        Technical <span className="stack__heading-muted">Stack</span>
+      </h2>
 
-          <div className="panel" style={{ padding: "clamp(1.75rem, 4vw, 3.5rem)" }}>
-            <div className="grain" />
-            <div className="panel__inner">
-              <ul className="grid grid-cols-2 gap-x-6 md:grid-cols-4">
-                {skillCategories.map((group) => (
-                  <li
-                    key={group.title}
-                    style={{
-                      borderTop: "1px solid var(--border)",
-                      paddingTop: "1rem",
-                      paddingBottom: "1.5rem",
-                    }}
-                  >
-                    <p className="body-text" style={{ marginBottom: "0.5rem" }}>
-                      {group.title}
-                    </p>
-                    <p
-                      className="desc"
-                      style={{ color: "var(--muted)", marginBottom: "0.75rem" }}
-                    >
-                      {group.blurb}
-                    </p>
-                    <ul>
-                      {group.skills.map((skill) => (
-                        <li key={skill.name} className="body-text">
-                          {skill.name}
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                ))}
-              </ul>
+      <div className="stack__cols">
+        {techStack.map((group) => (
+          <div key={group.label} className="stack__group">
+            <p className="stack__group-label">
+              <span className="stack__dot" aria-hidden="true" />
+              {group.label}
+            </p>
+
+            <div className="stack__cards">
+              {group.cards.map((card) => {
+                const Icon = ICONS[card.icon];
+                return (
+                  <div key={card.name} className="stack__card">
+                    <span className="stack__card-icon" aria-hidden="true">
+                      {Icon ? <Icon /> : null}
+                    </span>
+                    <span className="stack__card-name">{card.name}</span>
+                    <span className="stack__card-desc">{card.desc}</span>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="stack__tags">
+              {group.tags.map((tag) => (
+                <span key={tag} className="stack__tag">
+                  {tag}
+                </span>
+              ))}
             </div>
           </div>
-        </div>
+        ))}
       </div>
     </section>
   );
