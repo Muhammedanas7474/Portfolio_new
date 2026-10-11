@@ -59,6 +59,71 @@ export const stats = [
   { label: "Technologies", value: 20, suffix: "+" },
 ];
 
+/* Technical Stack — every skill as an icon card + secondary tag pills */
+export const techStack = [
+  {
+    label: "Backend Engineering",
+    cards: [
+      { name: "Python", icon: "python", desc: "Object-oriented language" },
+      { name: "Django", icon: "django", desc: "Web application framework" },
+      { name: "FastAPI", icon: "fastapi", desc: "High-performance API" },
+      { name: "DRF", icon: "django", desc: "REST toolkit for Django" },
+      { name: "REST APIs", icon: "postman", desc: "API architecture" },
+      { name: "JWT", icon: "jwt", desc: "Token authentication" },
+      { name: "ORM", icon: "orm", desc: "Database object mapping" },
+    ],
+    tags: [
+      "Authentication",
+      "API Design",
+      "Object-Oriented Design",
+      "Business Workflows",
+      "Secure Onboarding",
+    ],
+  },
+  {
+    label: "Frontend",
+    cards: [
+      { name: "React", icon: "react", desc: "Component library" },
+      { name: "JavaScript", icon: "javascript", desc: "Dynamic client language" },
+      { name: "HTML5", icon: "html", desc: "Markup language" },
+      { name: "CSS3", icon: "css", desc: "Style sheets" },
+      { name: "Tailwind CSS", icon: "tailwind", desc: "Utility-first styling" },
+      { name: "Redux", icon: "redux", desc: "Global state management" },
+    ],
+    tags: ["Responsive UI", "Context API", "REST Integration", "Component Architecture"],
+  },
+  {
+    label: "Database",
+    cards: [
+      { name: "PostgreSQL", icon: "postgresql", desc: "Open source database" },
+      { name: "MySQL", icon: "mysql", desc: "Relational database" },
+      { name: "SQL", icon: "sql", desc: "Query language" },
+    ],
+    tags: ["Query Optimization", "Data Modeling", "Database Design", "Migrations"],
+  },
+  {
+    label: "Cloud & DevOps",
+    cards: [
+      { name: "Docker", icon: "docker", desc: "Container virtualization" },
+      { name: "Git", icon: "git", desc: "Version control" },
+      { name: "GitHub", icon: "github", desc: "Code repository platform" },
+      { name: "AWS", icon: "aws", desc: "Cloud infrastructure" },
+      { name: "Vercel", icon: "vercel", desc: "Deployment platform" },
+    ],
+    tags: ["Linux", "CI/CD", "Deployment", "Postman", "Containerization"],
+  },
+  {
+    label: "Practices",
+    cards: [
+      { name: "Agile", icon: "agile", desc: "Iterative delivery" },
+      { name: "SDLC", icon: "sdlc", desc: "Software lifecycle" },
+      { name: "Problem Solving", icon: "problem", desc: "Analytical debugging" },
+      { name: "API Integration", icon: "integration", desc: "Third-party services" },
+    ],
+    tags: ["Production Debugging", "Performance Tuning", "Code Review"],
+  },
+];
+
 export const skillCategories = [
   {
     title: "Backend",
@@ -229,19 +294,6 @@ export const education = [
     description:
       "Foundational training in computer applications and programming ahead of the BCA program.",
   },
-];
-
-export const techStack = [
-  "React",
-  "Python",
-  "Docker",
-  "PostgreSQL",
-  "Django",
-  "Git",
-  "FastAPI",
-  "AWS",
-  "Tailwind CSS",
-  "Redux",
 ];
 
 /* ============================================================
