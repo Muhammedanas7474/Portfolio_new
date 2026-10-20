@@ -377,7 +377,7 @@ export const layerCopy = {
     label: "Experience",
     text: {
       dark: [
-        { text: "2+ years", accent: true },
+        { text: "1+ year", accent: true },
         {
           text: " of experience building secure banking platforms, scalable backend systems and production-ready digital products.",
         },
