@@ -16,6 +16,7 @@ interface Props {
  */
 export default function TextReveal({ children, radius }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const hoveringRef = useRef(false);
   const [containerWidth, setContainerWidth] = useState(0);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -56,16 +57,20 @@ export default function TextReveal({ children, radius }: Props) {
     mouseY.set(e.clientY - rect.top);
   };
 
-  const handleEnter = (e: React.PointerEvent<HTMLDivElement>) => {
+  const open = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.pointerType === "touch") return;
     updatePosition(e);
+    if (hoveringRef.current) return;
+    hoveringRef.current = true;
     const targetRadius =
       radius ?? Math.min(120, Math.max(60, window.innerWidth * 0.075));
     circleRadius.set(targetRadius);
     window.dispatchEvent(new Event("herocursor:hide"));
   };
 
-  const handleLeave = () => {
+  const close = () => {
+    if (!hoveringRef.current) return;
+    hoveringRef.current = false;
     circleRadius.set(0);
     window.dispatchEvent(new Event("herocursor:show"));
   };
@@ -73,9 +78,8 @@ export default function TextReveal({ children, radius }: Props) {
   return (
     <div
       ref={containerRef}
-      onPointerMove={updatePosition}
-      onPointerEnter={handleEnter}
-      onPointerLeave={handleLeave}
+      onPointerMove={open}
+      onPointerLeave={close}
       className="text-reveal select-none md:cursor-none"
     >
       {children}

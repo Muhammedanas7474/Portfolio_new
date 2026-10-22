@@ -95,6 +95,7 @@ export default function LoadingScreen() {
             alignItems: "center",
             justifyContent: "center",
             gap: "1.5rem",
+            pointerEvents: leaving ? "none" : "auto",
           }}
         >
           <div style={{ position: "relative", width: 270, height: 270 }}>
