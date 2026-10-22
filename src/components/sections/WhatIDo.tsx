@@ -9,7 +9,10 @@ import { layerCopy } from "@/lib/constants";
  */
 export default function WhatIDo() {
   return (
-    <section className="whatido-section" style={{ paddingBottom: "12.5rem" }}>
+    <section
+      className="whatido-section"
+      style={{ paddingBottom: "clamp(6rem, 18vw, 12.5rem)" }}
+    >
       <p className="body-text whatido__label">{layerCopy.whatIDo.label}</p>
 
       <div className="whatido">

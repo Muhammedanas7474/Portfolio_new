@@ -11,7 +11,10 @@ export default function About({ variant }: { variant: Layer }) {
   return (
     <section
       className="container_content"
-      style={{ paddingTop: "12.5rem", paddingBottom: "12.5rem" }}
+      style={{
+        paddingTop: "clamp(6rem, 18vw, 12.5rem)",
+        paddingBottom: "clamp(6rem, 18vw, 12.5rem)",
+      }}
     >
       <div className="grid grid-cols-12">
         <div className="col-span-12 md:col-span-8 md:col-start-3">

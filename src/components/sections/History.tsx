@@ -9,7 +9,10 @@ import { history, layerCopy } from "@/lib/constants";
  */
 export default function History() {
   return (
-    <section className="history-section" style={{ paddingBottom: "12.5rem" }}>
+    <section
+      className="history-section"
+      style={{ paddingBottom: "clamp(6rem, 18vw, 12.5rem)" }}
+    >
       <p className="body-text history__label">{layerCopy.history.label}</p>
 
       <div className="history">

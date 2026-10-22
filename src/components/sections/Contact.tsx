@@ -11,7 +11,10 @@ export default function Contact() {
   return (
     <section
       className="connect-section"
-      style={{ paddingTop: "12.5rem", paddingBottom: "6rem" }}
+      style={{
+        paddingTop: "clamp(6rem, 18vw, 12.5rem)",
+        paddingBottom: "clamp(4rem, 9vw, 6rem)",
+      }}
     >
       <p className="body-text connect__label">{layerCopy.contact.label}</p>
 

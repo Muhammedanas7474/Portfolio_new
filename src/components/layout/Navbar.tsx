@@ -37,7 +37,7 @@ export default function Navbar() {
         style={{
           pointerEvents: "auto",
           position: "fixed",
-          top: "1.75rem",
+          top: "max(1.75rem, env(safe-area-inset-top) + 1rem)",
           left: "var(--screen-x)",
           color: "var(--chrome-fg)",
           fontWeight: 700,
@@ -107,7 +107,7 @@ export default function Navbar() {
         style={{
           pointerEvents: "auto",
           position: "fixed",
-          top: "1.5rem",
+          top: "max(1.5rem, env(safe-area-inset-top) + 0.75rem)",
           right: "var(--screen-x)",
           zIndex: 101,
           color: "var(--chrome-fg)",

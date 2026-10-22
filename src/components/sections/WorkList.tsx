@@ -9,7 +9,10 @@ import { layerCopy, projects } from "@/lib/constants";
  */
 export default function WorkList() {
   return (
-    <section className="history-section" style={{ paddingBottom: "12.5rem" }}>
+    <section
+      className="history-section"
+      style={{ paddingBottom: "clamp(6rem, 18vw, 12.5rem)" }}
+    >
       <p className="body-text history__label">{layerCopy.work.label}</p>
 
       <div className="history">

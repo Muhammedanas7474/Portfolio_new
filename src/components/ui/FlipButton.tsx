@@ -28,7 +28,7 @@ export default function FlipButton() {
       style={{
         position: "fixed",
         right: "var(--screen-x)",
-        bottom: "1.5rem",
+        bottom: "max(1.5rem, env(safe-area-inset-bottom) + 1rem)",
         zIndex: 90,
         width: "3.75rem",
         height: "3.75rem",

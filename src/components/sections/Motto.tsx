@@ -32,8 +32,8 @@ export default function Motto({ variant }: { variant: Layer }) {
         className="container_content relative grid grid-cols-12"
         style={{
           zIndex: 2,
-          paddingTop: "8rem",
-          paddingBottom: "8rem",
+          paddingTop: "clamp(5rem, 12vw, 8rem)",
+          paddingBottom: "clamp(5rem, 12vw, 8rem)",
           borderTop: "1px solid var(--border)",
           borderBottom: "1px solid var(--border)",
         }}

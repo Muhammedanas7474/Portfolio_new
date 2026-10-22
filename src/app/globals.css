@@ -64,6 +64,7 @@ html {
   scroll-padding-top: 6rem;
   -webkit-text-size-adjust: 100%;
 }
+}
 
 /* Foreground for chrome that floats *above* both layers (navbar, footer,
    flip button). Each layer repaints itself with `.layer`; these two cannot,
@@ -80,7 +81,6 @@ html {
   --chrome-fg-muted: hsla(0, 0%, 5%, 0.5);
   --chrome-line: #0d0d0d;
   --chrome-accent: #0d0d0d;
-}
 }
 
 @media (min-width: 1200px) {
@@ -571,6 +571,23 @@ b {
   transform: translateY(0);
 }
 
+/* Stacked layout has no hover — keep the description readable at rest.
+   Same for touch-only devices at any width where the hover never fires. */
+@media (max-width: 899px), (hover: none) {
+  .whatido__desc {
+    opacity: 1;
+    transform: none;
+    color: var(--muted);
+    text-align: left;
+    margin-left: 0;
+  }
+
+  .whatido__row:hover .whatido__desc,
+  .whatido__row:focus-within .whatido__desc {
+    color: var(--bg);
+  }
+}
+
 /* ============================================================
    History — full-bleed ruled rows; content on mid-page column
    ============================================================ */
@@ -876,8 +893,15 @@ b {
    ============================================================ */
 
 .stack-section {
-  padding-top: 12.5rem;
-  padding-bottom: 12.5rem;
+  padding-top: 7.5rem;
+  padding-bottom: 7.5rem;
+}
+
+@media (min-width: 768px) {
+  .stack-section {
+    padding-top: 12.5rem;
+    padding-bottom: 12.5rem;
+  }
 }
 
 .stack__heading,
@@ -1095,16 +1119,17 @@ b {
   position: relative;
   display: inline-block;
   max-width: 100%;
+  /* Horizontal finger-drags drive the reveal; vertical swipes still scroll. */
+  touch-action: pan-y;
 }
 
 .text-reveal__circle {
   position: absolute;
   z-index: 10;
-  border-radius: 9999px;
   background: var(--accent);
   pointer-events: none;
   overflow: hidden;
-  will-change: transform;
+  will-change: clip-path;
 }
 
 .text-reveal__copy {

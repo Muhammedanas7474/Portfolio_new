@@ -70,7 +70,11 @@ export default function Experience({ variant }: { variant: Layer }) {
 
       <div
         className="container_content grid grid-cols-12 relative"
-        style={{ paddingTop: "12.5rem", paddingBottom: "15.625rem", zIndex: 2 }}
+        style={{
+          paddingTop: "clamp(6rem, 18vw, 12.5rem)",
+          paddingBottom: "clamp(7rem, 22vw, 15.625rem)",
+          zIndex: 2,
+        }}
       >
         <div className="col-span-12 md:col-span-8 md:col-start-3">
           <p className="body-text">{layerCopy.experience.label}</p>

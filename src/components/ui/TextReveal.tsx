@@ -1,7 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 
 interface Props {
   children: ReactNode;
@@ -9,14 +15,27 @@ interface Props {
 }
 
 /**
- * Orange circle follows the cursor across the wrapped headline and reveals
- * a color-inverted duplicate underneath — the signature reference hover.
- * The disc floats freely (sized by width/height, not clip-path) so it stays
- * round when it bleeds past the text box.
+ * How far the reveal layer extends past the text box on every side, so the
+ * clip-path circle stays perfectly round even when it bleeds past the text.
+ */
+const BLEED = 150;
+
+/** Ignore compat mouse-move events that fire right after a touch tap. */
+const TOUCH_END_GUARD_MS = 700;
+
+/**
+ * Orange circle follows the cursor (or finger) across the wrapped headline
+ * and reveals a color-inverted duplicate underneath — the signature hover.
+ *
+ * The disc is a clip-path circle on an oversized paint-only layer: no
+ * width/height/left/top changes, so tracking never triggers layout and the
+ * reveal stays instant. On touch devices the circle opens on pointerdown
+ * and follows the finger until release.
  */
 export default function TextReveal({ children, radius }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const hoveringRef = useRef(false);
+  const activeRef = useRef(false);
+  const touchEndedAtRef = useRef(0);
   const [containerWidth, setContainerWidth] = useState(0);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -32,23 +51,17 @@ export default function TextReveal({ children, radius }: Props) {
     return () => observer.disconnect();
   }, []);
 
-  const springX = useSpring(mouseX, { stiffness: 180, damping: 22, mass: 0.4 });
-  const springY = useSpring(mouseY, { stiffness: 180, damping: 22, mass: 0.4 });
+  const springX = useSpring(mouseX, { stiffness: 320, damping: 32, mass: 0.3 });
+  const springY = useSpring(mouseY, { stiffness: 320, damping: 32, mass: 0.3 });
   const springRadius = useSpring(circleRadius, {
-    stiffness: 220,
+    stiffness: 280,
     damping: 26,
-    mass: 0.5,
+    mass: 0.4,
   });
-  const diameter = useTransform(springRadius, (r) => r * 2);
 
-  const innerLeft = useTransform(
-    [diameter, springX],
-    ([d, x]: number[]) => d / 2 - x,
-  );
-  const innerTop = useTransform(
-    [diameter, springY],
-    ([d, y]: number[]) => d / 2 - y,
-  );
+  const clipX = useTransform(springX, (x) => x + BLEED);
+  const clipY = useTransform(springY, (y) => y + BLEED);
+  const clipPath = useMotionTemplate`circle(${springRadius}px at ${clipX}px ${clipY}px)`;
 
   const updatePosition = (e: React.PointerEvent<HTMLDivElement>) => {
     const rect = containerRef.current?.getBoundingClientRect();
@@ -58,27 +71,52 @@ export default function TextReveal({ children, radius }: Props) {
   };
 
   const open = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (e.pointerType === "touch") return;
+    if (
+      e.pointerType === "mouse" &&
+      performance.now() - touchEndedAtRef.current < TOUCH_END_GUARD_MS
+    ) {
+      return;
+    }
     updatePosition(e);
-    if (hoveringRef.current) return;
-    hoveringRef.current = true;
+    if (activeRef.current) return;
+    activeRef.current = true;
     const targetRadius =
       radius ?? Math.min(120, Math.max(60, window.innerWidth * 0.075));
     circleRadius.set(targetRadius);
-    window.dispatchEvent(new Event("herocursor:hide"));
+    if (e.pointerType !== "touch") {
+      window.dispatchEvent(new Event("herocursor:hide"));
+    }
   };
 
   const close = () => {
-    if (!hoveringRef.current) return;
-    hoveringRef.current = false;
+    if (!activeRef.current) return;
+    activeRef.current = false;
     circleRadius.set(0);
     window.dispatchEvent(new Event("herocursor:show"));
+  };
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "mouse") return;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    open(e);
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "mouse") return;
+    touchEndedAtRef.current = performance.now();
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
+    close();
   };
 
   return (
     <div
       ref={containerRef}
       onPointerMove={open}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={close}
       onPointerLeave={close}
       className="text-reveal select-none md:cursor-none"
     >
@@ -88,20 +126,20 @@ export default function TextReveal({ children, radius }: Props) {
         role="presentation"
         className="text-reveal__circle"
         style={{
-          left: springX,
-          top: springY,
-          x: "-50%",
-          y: "-50%",
-          width: diameter,
-          height: diameter,
+          top: -BLEED,
+          left: -BLEED,
+          right: -BLEED,
+          bottom: -BLEED,
+          clipPath,
+          WebkitClipPath: clipPath,
         }}
       >
-        <motion.div
+        <div
           className="text-reveal__copy"
-          style={{ left: innerLeft, top: innerTop, width: containerWidth }}
+          style={{ top: BLEED, left: BLEED, width: containerWidth }}
         >
           {children}
-        </motion.div>
+        </div>
       </motion.div>
     </div>
   );
