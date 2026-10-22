@@ -17,33 +17,49 @@ function ParallaxPhoto() {
   const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
   return (
-    <div
-      ref={ref}
-      aria-hidden="true"
-      className="pointer-events-none absolute right-0 top-0 hidden h-full w-[42%] overflow-hidden max-md:!hidden md:block"
-      style={{ zIndex: 1 }}
-    >
-      <motion.img
-        src="/profile.jpg"
-        alt=""
-        loading="lazy"
-        style={{ y }}
-        className="h-[120%] w-full object-cover object-[center_18%]"
-        onError={(event) => {
-          (event.currentTarget as HTMLImageElement).style.display = "none";
-        }}
-      />
+    <>
+      {/* Mobile: full-bleed background treatment, same as the Motto section */}
       <div
-        className="absolute inset-0"
-        style={{ backgroundColor: "var(--bg)", opacity: 0.42 }}
-      />
-      <div
-        className="absolute inset-y-0 left-0 w-40"
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 md:hidden"
         style={{
-          background: "linear-gradient(to right, var(--bg), transparent)",
+          backgroundImage: "url(/profile.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center 18%",
+          opacity: 0.1,
+          zIndex: 0,
+          filter: "grayscale(0.35)",
         }}
       />
-    </div>
+
+      <div
+        ref={ref}
+        aria-hidden="true"
+        className="pointer-events-none absolute right-0 top-0 hidden h-full w-[42%] overflow-hidden md:block"
+        style={{ zIndex: 1 }}
+      >
+        <motion.img
+          src="/profile.jpg"
+          alt=""
+          loading="lazy"
+          style={{ y }}
+          className="h-[120%] w-full object-cover object-[center_18%]"
+          onError={(event) => {
+            (event.currentTarget as HTMLImageElement).style.display = "none";
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ backgroundColor: "var(--bg)", opacity: 0.42 }}
+        />
+        <div
+          className="absolute inset-y-0 left-0 w-40"
+          style={{
+            background: "linear-gradient(to right, var(--bg), transparent)",
+          }}
+        />
+      </div>
+    </>
   );
 }
 
