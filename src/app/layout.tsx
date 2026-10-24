@@ -88,10 +88,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body
-        className={`${poppins.variable} antialiased bg-bg text-text-primary md:cursor-none cursor-none-all`}
-      >
+    <html lang="en" className={poppins.variable}>
+      <body className="antialiased bg-bg text-text-primary md:cursor-none cursor-none-all">
         <JsonLd />
         <a href="#main-content" className="skip-nav">
           Skip to main content
