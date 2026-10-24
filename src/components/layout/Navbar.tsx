@@ -33,11 +33,10 @@ export default function Navbar() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         data-cursor="extend"
-        className="h3"
+        className="h3 chrome-logo"
         style={{
           pointerEvents: "auto",
           position: "fixed",
-          top: "max(1.75rem, env(safe-area-inset-top) + 1rem)",
           left: "var(--screen-x)",
           color: "var(--chrome-fg)",
           fontWeight: 700,
@@ -53,15 +52,14 @@ export default function Navbar() {
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="hidden md:flex"
+        className="hidden md:flex chrome-nav"
         style={{
           pointerEvents: "auto",
           position: "fixed",
-          top: "2rem",
           right: "var(--screen-x)",
           flexDirection: "column",
           alignItems: "flex-end",
-          gap: "1.35rem",
+          gap: 0,
           listStyle: "none",
           margin: 0,
           padding: 0,
@@ -73,20 +71,7 @@ export default function Navbar() {
               href={item.href}
               onClick={navigate(item.href)}
               data-cursor="extend"
-              className="desc"
-              style={{
-                color: "var(--chrome-fg)",
-                letterSpacing: "0.3em",
-                textTransform: "uppercase",
-                textDecoration: "none",
-                transition: "color 0.3s cubic-bezier(0.165,0.84,0.44,1)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = "var(--chrome-accent)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = "var(--chrome-fg)";
-              }}
+              className="nav-link"
             >
               {item.label}
             </a>

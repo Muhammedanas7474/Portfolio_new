@@ -312,6 +312,66 @@ body {
   }
 }
 
+/* Navbar links — sized off the reference chrome scale (its root is
+   calc(8px + .78125vw) below 1200px and .9259vw above, so the links hit
+   the same rendered px at every viewport instead of our fluid rem). */
+.nav-link {
+  display: block;
+  font-family: var(--font-desc);
+  font-weight: 700;
+  font-size: calc(0.875 * (8px + 0.78125vw));
+  line-height: 100%;
+  letter-spacing: normal;
+  padding: calc(0.25 * (8px + 0.78125vw)) 0;
+  text-align: right;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--chrome-fg-muted);
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--chrome-fg);
+}
+
+@media (min-width: 1200px) {
+  .nav-link {
+    font-size: 0.9259259259vw;
+    padding: 0.3472222222vw 0;
+  }
+}
+
+/* Header drop from the top edge — the reference runs 1.25rem, then 2.5rem
+   from 768, then 6.5476vh from 1200; the logo rides .3125rem below that. */
+.chrome-logo {
+  top: max(1.75rem, env(safe-area-inset-top) + 1rem);
+}
+
+.chrome-nav {
+  top: 1.625rem;
+}
+
+@media (min-width: 768px) {
+  .chrome-logo {
+    top: calc(22.5px + 2.1972656vw);
+  }
+
+  .chrome-nav {
+    top: calc(20px + 1.953125vw);
+  }
+}
+
+@media (min-width: 1200px) {
+  .chrome-logo {
+    top: calc(6.5476190476vh + 0.2893518519vw);
+  }
+
+  .chrome-nav {
+    top: 6.5476190476vh;
+  }
+}
+
 .sub-content {
   font-family: var(--font-display);
   font-weight: 400;
