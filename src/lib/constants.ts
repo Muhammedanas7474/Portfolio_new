@@ -338,7 +338,7 @@ export const layerCopy = {
       dark:
         "I'm a full-stack software engineer with a strong focus on building secure, scalable backend systems and shipping production-ready digital products.",
       red:
-        "Most of my day is convincing a Django server to do what the ticket said. The rest is reading stack traces I wrote myself, and slowly getting better at both.",
+        "Early-career engineer, so most of my day is Django backends that have to stay up, and stack traces from my own code. Better at reading them than writing them.",
     },
   },
 
