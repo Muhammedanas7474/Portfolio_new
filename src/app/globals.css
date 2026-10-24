@@ -317,7 +317,7 @@ body {
    the same rendered px at every viewport instead of our fluid rem). */
 .nav-link {
   display: block;
-  font-family: var(--font-desc);
+  font-family: var(--font-nunito, var(--font-desc));
   font-weight: 700;
   font-size: calc(0.875 * (8px + 0.78125vw));
   line-height: 100%;

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins } from "next/font/google";
+import { Nunito_Sans, Poppins } from "next/font/google";
 import "./globals.css";
 import ClientProviders from "@/components/layout/ClientProviders";
 import JsonLd from "@/components/seo/JsonLd";
@@ -11,6 +11,13 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-poppins",
+  display: "swap",
+});
+
+const nunitoSans = Nunito_Sans({
+  subsets: ["latin"],
+  weight: ["700"],
+  variable: "--font-nunito",
   display: "swap",
 });
 
@@ -88,7 +95,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={poppins.variable}>
+    <html lang="en" className={`${poppins.variable} ${nunitoSans.variable}`}>
       <body className="antialiased bg-bg text-text-primary md:cursor-none cursor-none-all">
         <JsonLd />
         <a href="#main-content" className="skip-nav">
